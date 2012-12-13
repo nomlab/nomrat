@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## Create   : 2011/06/09 -Y.Kimura
-## Modified : 2012/12/10 -Y.kimura
+## Modified : 2012/12/13 -Y.kimura
 ## Ruby Ver : 1.8.7
 ## Inform Nomnichi author by tweet
 #####################
@@ -84,8 +84,6 @@ speach << "最後の記事(#{date_ago}日前)から1週間以上経ってます�
 
 if( error_message == "" )
   ret = tm.send_message( speach )
-  puts "ok"
-  puts last_date.to_s
 else
   errors = Time.now.strftime("%Y/%m/%d : ") + "\n"
   open("errorlog.txt", "w+"){|f|

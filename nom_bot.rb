@@ -10,6 +10,7 @@ require 'rubygems'
 require 'open-uri'
 require 'kconv'
 require 'time'
+require 'date'
 $KCODE = "UTF8"
 #####################
 

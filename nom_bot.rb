@@ -98,9 +98,8 @@ end
 
 today = Date.today
 sotsu = ( Date.new(2013,2,8) - today ).to_s
-shu   = ( Date.new(2013,2,7) - today ).to_s
 
-speach = "卒論締切(2/8)まであと#{sotsu}日です！修論締切(2/7)まであと#{shu}日です！予定を管理して無理のない執筆を！"
+speach = "卒論締切(2/8)まであと#{sotsu}日です！予定を管理して無理のない執筆を！"
 tm.send_message( speach )
 
 ###

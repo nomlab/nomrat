@@ -94,17 +94,6 @@ else
 end
 
 
-### 卒論締切まで・・・
-
-today = Date.today
-sotsu = ( Date.new(2013,2,8) - today ).to_s
-
-speach = "卒論締切(2/8)まであと#{sotsu}日です！予定を管理して無理のない執筆を！"
-tm.send_message( speach )
-
-###
-
-
 ## 金曜日じゃないなら終わるね
 exit unless (Time.now.wday == 5)
 

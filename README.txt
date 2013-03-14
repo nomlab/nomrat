@@ -8,7 +8,7 @@ To use this application, you needs these files:
 (2) "TwitterAuthorize.txt"
 (3) "NomTable.rb"
 
-if you want to obtain these files and you are nomura-laboratory's students,
+if you want to obtain these files and you are nomura-laboratory's member,
 please send message to "kimura-y@swlab.cs.okayama-u.ac.jp".
 
 * nomnichi( http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi )

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## Create   : 2011/06/09 -Y.Kimura
-## Modified : 2013/14/10 -Y.kimura
+## Modified : 2013/04/10 -Y.kimura
 ## Ruby Ver : 1.8.7
 ## Get&Return _kinro_
 #####################

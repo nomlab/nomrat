@@ -11,6 +11,7 @@ require 'MailSender.rb'
 require 'NomnichiGetter.rb'
 require 'KinroGetter.rb'
 require 'RedmineGetter.rb'
+require 'DebiansecGetter.rb'
 ## others
 require 'time'
 require 'date'
@@ -18,10 +19,10 @@ $KCODE = "UTF8"
 #####################
 
 
-
-### Authorize
+### initialize
 error_message = ""
 tweetsender = TweetSender.new
+mailsender = MailSender.new
 
 ##----------------------------------------------------------------------
 ## Tweet next Nomnichi author
@@ -30,7 +31,7 @@ nomnichigetter = NomnichiGetter.new
 writer_message = nomnichigetter.get_writer
 
 if( writer_message == "" )
-  puts ""
+  error_message << "[nom_bot.rb/nomnichi_author]\n"
 else
   tweetsender.send_message( writer_message )
 end
@@ -43,7 +44,7 @@ if(Time.now.wday == 5) ## today is Friday???
   kinro_message = kinrogetter.get_kinro
 
   if( kinro_message == "" )
-    puts "error of kinro"
+    error_message << "[nom_bot.rb/kinro_title]\n"
   else
     tweetsender.send_message( kinro_message )
   end
@@ -56,19 +57,35 @@ redminegetter = RedmineGetter.new
 redmine_message = redminegetter.get_itr
 
 if( redmine_message == "" )
-  puts ""
+    error_message << "[nom_bot.rb/redmine_ticket]\n"
 else
   tweetsender.send_message( redmine_message )
 
   if( redminegetter.itr_date - Date.today == 2 )
     redmine_ticket = redminegetter.get_ticket
     itr = redminegetter.new_itr
-
-    mailsender = MailSender.new
+                     # body        , setting file       , _                 , _        , parameter
     mailsender.send( redmine_ticket, "_redmine_mail.stg", host = "localhost", port = 25, itr )
   end
 end
 
+##----------------------------------------------------------------------
+## Mail Debian's security message
+##----------------------------------------------------------------------
+debiansecgetter = DebiansecGetter.new
+debiansec_message = debiansecgetter.get_sec
+
+if( debiansec_message != [] )
+  head = "Debianに，以下のパッケージのセキュリティ勧告が報告されています．\n"
+  head << "================================================================\n"
+  body = head + debiansec_message.to_s
+                  # body, setting file       , _                 , _        , parameter
+  mailsender.send( body, "_debiansec_mail.stg", host = "localhost", port = 25, "#{Date.today.to_s}" )
+  
+  open( "latest_sec.txt", "w+" ){|f|
+    f.write Date.today
+  }
+end
 
 ##----------------------------------------------------------------------
 ## Write errorlog

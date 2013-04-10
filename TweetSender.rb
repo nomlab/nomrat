@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## Created  : 2011/06/09 -Y.Kimura
-## Modified : 2012/12/11 -Y.Kimura
+## Modified : 2013/04/10 -Y.Kimura
 ## Ruby Ver : 1.8.7
 ## tweet string
 ##################

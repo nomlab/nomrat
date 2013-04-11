@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## Create   : 2013/04/10 -Y.Kimura
-## Modified : 2013/04/10 -Y.kimura
+## Modified : 2013/04/11 -Y.kimura
 ## Ruby Ver : 1.8.7
 ## Get&Return _kinro_
 #####################
@@ -48,7 +48,8 @@ class DebiansecGetter
     informations = sours.scan(/<tt>.*<br>/)
     
     todays_infos = Array.new
-    
+    write_back_date = latest_sec
+
     informations.each{|sec_info|
       if(sec_info =~ /<tt>\[(.*)\]<\/tt>/)
         date = $1
@@ -59,7 +60,13 @@ class DebiansecGetter
           bug = $3
           todays_infos << "(#{date}報告) #{package}: #{bug} \n ->詳細(http://www.debian.org/security/2013/dsa-#{dsa_num}) \n"
         end
+
+        write_back_date = date if( Date.strptime( date ) > Date.strptime( write_back_date ) )
       end
+    }
+
+    open( "latest_sec.txt", "w+" ){|f|
+      f.write write_back_date
     }
     
     return todays_infos

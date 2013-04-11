@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ## Create   : 2011/06/09 -Y.Kimura
-## Modified : 2013/04/10 -Y.kimura
+## Modified : 2013/04/11 -Y.kimura
 ## Ruby Ver : 1.8.7
 ## Inform Nomnichi author by tweet
 #####################
@@ -82,9 +82,6 @@ if( debiansec_message != [] )
                   # body, setting file       , _                 , _        , parameter
   mailsender.send( body, "_debiansec_mail.stg", host = "localhost", port = 25, "#{Date.today.to_s}" )
   
-  open( "latest_sec.txt", "w+" ){|f|
-    f.write Date.today
-  }
 end
 
 ##----------------------------------------------------------------------

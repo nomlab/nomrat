@@ -34,8 +34,9 @@ class NomnichiGetter
     
     ### Get nomnichi page
     sours = ""
-    nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi"
-    
+# old:   nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi"
+    nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54322/nomnichi"
+
     begin
       open( nomnichi_page ){|f|
         f.each_line{|line|
@@ -53,22 +54,25 @@ class NomnichiGetter
     
     begin
       ## next date
-      date_array = sours.scan( /<div class=\"published_on\">\s([^\n]*)\n/ )
-      author = sours.scan( /<div class=\"published_on\">\s.*\s([^<]*)\s.*\s<\/div>/ )
-      author.flatten!
-      last_date = date_array.flatten.first.strip
+#      date_array = sours.scan( /<li class=\"article_list\">([^\s]*)\s/ )
+#      author = sours.scan( /<div class=\"published_on\">\s.*\s([^<]*)\s.*\s<\/div>/ )
+      article_list = sours.scan( /<li class=\"article_list\">([^<]*)<\/li>/ )
+
       ## next author
-      author.each do |name|
+      article_list.each do |article|
+        date_and_author = article.join("").split(" ")
+        name = date_and_author.last
         name.strip!
-        speaker << nom_table[name] if( nom_table[name] != nil)
+        last_date = date_and_author.first
+        speaker = nom_table[name] if( nom_table[name] != nil)
+        break if( nom_table[name] != nil)
       end
       error_message << "Error: fail to Define next author.\n" if speaker.first == nil
       
     rescue
       error_message << "Error: fail to Get author&date from nomnichi.\n"
     end
-    
-    
+
     ### tweet next author
     speach = "次のノムニチ担当は#{speaker.first}さんです．よろしくお願いします．"
     week_ago = (Time.now - 7*24*60*60)

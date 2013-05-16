@@ -35,7 +35,7 @@ class NomnichiGetter
     ### Get nomnichi page
     sours = ""
 # old:   nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi"
-    nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54322/nomnichi"
+    nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54323/nomnichi"
 
     begin
       open( nomnichi_page ){|f|

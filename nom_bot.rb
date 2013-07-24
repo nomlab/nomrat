@@ -27,13 +27,17 @@ mailsender = MailSender.new
 ##----------------------------------------------------------------------
 ## Tweet next Nomnichi author
 ##----------------------------------------------------------------------
-nomnichigetter = NomnichiGetter.new
-writer_message = nomnichigetter.get_writer
-
-if( writer_message == "" )
-  error_message << "[nom_bot.rb/nomnichi_author]\n"
-else
-  tweetsender.send_message( writer_message )
+begin
+  nomnichigetter = NomnichiGetter.new
+  writer_message = nomnichigetter.get_writer
+  
+  if( writer_message == "" )
+    error_message << "[nom_bot.rb/nomnichi_author]\n"
+  else
+    tweetsender.send_message( writer_message )
+  end
+rescue
+  error_message << "I cannot get nomnichi articles"
 end
 
 ##----------------------------------------------------------------------

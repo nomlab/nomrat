@@ -89,5 +89,17 @@ if( debiansec_message != [] )
 end
 
 ##----------------------------------------------------------------------
+## Notice weather
+##----------------------------------------------------------------------
+weathergetter = WeatherGetter.new
+weather_message = weathergetter.notice_rain(weathergetter.get_weather)
+
+if( weather_message == nil)
+  error_message << "[nom_bot.rb/weather]\n"
+else
+  tweetsender.send_message( weather_message )
+end
+
+##----------------------------------------------------------------------
 ## Write errorlog
 ##----------------------------------------------------------------------

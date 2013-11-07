@@ -12,6 +12,7 @@ require 'NomnichiGetter.rb'
 require 'KinroGetter.rb'
 require 'RedmineGetter.rb'
 require 'DebiansecGetter.rb'
+require 'CalendarGetter.rb'
 ## others
 require 'time'
 require 'date'
@@ -100,6 +101,17 @@ else
   tweetsender.send_message( weather_message )
 end
 
+## Calendar message
+##----------------------------------------------------------------------
+calendar_messenger = CalendarMessenger.new
+calendar_message = calendar_messenger.create_meeting_reminder
+##----------------------------------------------------------------------
+
+if( calendar_message == "" )
+    error_message << "[nom_bot.rb/calendar]\n"
+else
+  tweetsender.send_message( calendar_message )
+end
 ##----------------------------------------------------------------------
 ## Write errorlog
 ##----------------------------------------------------------------------

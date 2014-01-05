@@ -34,8 +34,8 @@ class NomnichiGetter
     
     ### Get nomnichi page
     sours = ""
-# old:   nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi"
-    nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54323/nomnichi"
+    nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi/articles"
+    # nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54323/nomnichi"
 
     begin
       open( nomnichi_page ){|f|
@@ -53,9 +53,6 @@ class NomnichiGetter
     last_date = nil
     
     begin
-      ## next date
-#      date_array = sours.scan( /<li class=\"article_list\">([^\s]*)\s/ )
-#      author = sours.scan( /<div class=\"published_on\">\s.*\s([^<]*)\s.*\s<\/div>/ )
       article_list = sours.scan( /<li class=\"article_list\">([^<]*)<\/li>/ )
 
       ## next author

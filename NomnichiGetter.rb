@@ -33,19 +33,28 @@ class NomnichiGetter
     end
     
     ### Get nomnichi page
+    # nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi/articles"
     sours = ""
-    nomnichi_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi/articles"
-    # nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54323/nomnichi"
+    nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54323/nomnichi"
+    uri = URI.parse( nomnichi_page )
+    file = "_nomnichi_cookie.stg"
+    cookie_str = File.open(file,"r").read
+    new_cookie = ""
 
     begin
-      open( nomnichi_page ){|f|
+      open( uri,{'Cookie'=>cookie_str} ){|f|
         f.each_line{|line|
           sours += line
         }
+      new_cookie = f.meta
       }
     rescue
       error_message << "Error: fail to Get nomnichi page.\n"
     end
+
+    is_cookie = (new_cookie.to_s =~ /set-cookie(.*)transfer-encodingchunked/)
+    head = $1
+    File.open(file,"w").write( head ) if (is_cookie != false)
     
     ### Get author&date from nomnichi
     speaker = Array.new

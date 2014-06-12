@@ -1,48 +1,51 @@
-nomnichi_bot
-============
+* nomnichi_bot
 
-nomnichi is blog of nomura-laboratory's students.
-nomnichi_bot tweets next nomnichi author.
-To use this application, you needs these files:
-(1) "_twitter_auth.stg"
-(2) "_redmine_mail.stg"
-(3) "NomTable.rb"
+** What is nomnichi_bot?
 
-if you want to obtain these files and you are nomura-laboratory's member,
-please send message to "kimura-y@swlab.cs.okayama-u.ac.jp".
+  Nomnichi is a blog of nomura-laboratory's students.
+  (http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi)
 
-* nomnichi( http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi )
+  nomnichi_bot tweets us who is expected to write
+  a new nomnichi blog article as a reminder.
 
+  To use this application, you needs these setup:
+  1) Twitter credencial as _twitter_auth.stg
+  2) Redmine credential as _redmine_mail.stg
+  3) Member list of the labo as nom_table.rb
 
-METHOD1. inform nomnichi author
-METHOD2. inform kinro title
-METHOD3. inform GN KAIHATSU meeting
+** Functions
 
-=========================================================================
-            (html)   
-+-----------+    +-----------------+
-|nomlab-blog| -> |NomnichiGetter.rb| ----+
-+-----------+    +-----------------+     |
-                   L[ NomTable.rb ]      |
-                                         |
-+-----------+    +-----------------+     |
-|Kinro-page | -> | KinroGetter.rb  | ----+
-+-----------+    +-----------------+     |
-                                         |
-+-----------+    +-----------------+     |
-|  Redmine  | -> |RedmineGetter.rb | ----+
-+-----------+    +-----------------+     |
-                                         V
-                                    +------------+
-                                    | nom_bot.rb | - - - Cron
-                                    +------------+
-          (API,SMTP)                     |
-+-----------+    +-----------------+     |
-|  Twitter  | <- | TweetSender.rb  | ----+
-+-----------+    +-----------------+     |
-                   L[ _twitter_auth.stg ]|
-                                         |
-+-----------+    +-----------------+     |
-|  MEMBERs  | <- |  MailSender.rb  | ----+
-+-----------+    +-----------------+
-                   L[ _redmine_mail.stg ]
+   1) Remind next nomnichi author
+   2) Inform kinro title
+   3) Remind GN delopment meeting
+
+** Structure
+
+   #+BEGIN_EXAMPLE
+     +-----------+    +-----------------+
+     |nomlab-blog| -> |NomnichiGetter   | ----+
+     +-----------+    +-----------------+     |
+                        L[ NomTable    ]      |
+                                              |
+     +-----------+    +-----------------+     |
+     |Kinro-page | -> | KinroGetter     | ----+
+     +-----------+    +-----------------+     |
+                                              |
+     +-----------+    +-----------------+     |
+     |  Redmine  | -> |RedmineGetter    | ----+
+     +-----------+    +-----------------+     |
+                                              V
+                                         +--------------+
+                                         | nomnichi_bot | - - - Cron
+                                         +--------------+
+               (API,SMTP)                     |
+     +-----------+    +-----------------+     |
+     |  Twitter  | <- | TweetSender     | ----+
+     +-----------+    +-----------------+     |
+                        L[ _twitter_auth.stg ]|
+                                              |
+     +-----------+    +-----------------+     |
+     |  MEMBERs  | <- |  MailSender     | ----+
+     +-----------+    +-----------------+
+                        L[ _redmine_mail.stg ]
+   #+END_EXAMPLE

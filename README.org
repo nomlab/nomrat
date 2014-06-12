@@ -1,3 +1,29 @@
+#+TITLE: nomnichi_bot
+#+AUTHOR: 
+#+EMAIL:
+#+DATE: 
+#+OPTIONS: H:3 num:2 toc:nil
+#+OPTIONS: ^:nil @:t \n:nil ::t |:t f:t TeX:t
+#+OPTIONS: skip:nil
+#+OPTIONS: author:t
+#+OPTIONS: email:nil
+#+OPTIONS: creator:nil
+#+OPTIONS: timestamp:nil
+#+OPTIONS: timestamps:nil
+#+OPTIONS: d:nil
+#+OPTIONS: tags:t
+#+TEXT:
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE: ja
+#+STARTUP: odd
+#+LATEX_CLASS: jsarticle
+#+LATEX_CLASS_OPTIONS: [a4j]
+# #+LATEX_HEADER: \usepackage{plain-article}
+# #+LATEX_HEADER: \renewcommand\maketitle{}
+# #+LATEX_HEADER: \pagestyle{empty}
+# #+LaTeX: \thispagestyle{empty}
+
 * nomnichi_bot
 
 ** What is nomnichi_bot?
@@ -19,33 +45,63 @@
    2) Inform kinro title
    3) Remind GN delopment meeting
 
-** Structure
+** INSTALL for developers:
+   1) Install rbenv + ruby-build
+      (see https://github.com/sstephenson/rbenv#basic-github-checkout for details)
+      #+BEGIN_SRC shell-script
+        $ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+        $ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+        # Edit your shell dot files to add some path and environment variables.
+      #+END_SRC
 
-   #+BEGIN_EXAMPLE
-     +-----------+    +-----------------+
-     |nomlab-blog| -> |NomnichiGetter   | ----+
-     +-----------+    +-----------------+     |
-                        L[ NomTable    ]      |
-                                              |
-     +-----------+    +-----------------+     |
-     |Kinro-page | -> | KinroGetter     | ----+
-     +-----------+    +-----------------+     |
-                                              |
-     +-----------+    +-----------------+     |
-     |  Redmine  | -> |RedmineGetter    | ----+
-     +-----------+    +-----------------+     |
-                                              V
-                                         +--------------+
-                                         | nomnichi_bot | - - - Cron
-                                         +--------------+
-               (API,SMTP)                     |
-     +-----------+    +-----------------+     |
-     |  Twitter  | <- | TweetSender     | ----+
-     +-----------+    +-----------------+     |
-                        L[ _twitter_auth.stg ]|
-                                              |
-     +-----------+    +-----------------+     |
-     |  MEMBERs  | <- |  MailSender     | ----+
-     +-----------+    +-----------------+
-                        L[ _redmine_mail.stg ]
-   #+END_EXAMPLE
+   2) Install Latest Ruby and bundler
+      #+BEGIN_SRC shell-script
+        # Install ruby 2.1.2
+        $ rbenv install 2.1.2
+
+        # Installation check
+        $ rbenv global 2.1.2
+        $ ruby -v # -> You will see: ruby 2.1.2...
+
+        # Install bundler for your new Ruby
+        $ gem install bundler
+
+        # Get back to your sytem default Ruby if you want
+        $ rbenv global system # say, /usr/bin/ruby
+        $ ruby -v
+      #+END_SRC
+
+   3) Clone nomnichi_bot from github
+      #+BEGIN_SRC shell-script
+        $ git clone git@github.com:kimura-y/nomnichi_bot.git ~/src/nomnichi_bot
+      #+END_SRC
+
+   4) Set default ruby version in nomnichi_bot project
+      #+BEGIN_SRC shell-script
+        $ cd ~/src/nomnichi_bot
+        $ echo '2.1.2' > .ruby-version
+        $ ruby -v # -> You will see: ruby 2.1.2...
+      #+END_SRC
+
+   5) Install requied gem packages in sandbox ~/src/nomnichi_bot/vendor/bundle
+      #+BEGIN_SRC shell-script
+        $ cd ~/src/nomnichi_bot
+        $ bundle install --path vendor/bundle
+      #+END_SRC
+
+   6) Place OAuth credentials as _twitter_auth.stg
+      #+BEGIN_SRC shell-script
+        # This file is expected to contain five lines:
+        $ cat ~/src/nomnichi_bot/_twitter_auth.stg
+        consumer_key
+        consumer_secret
+        access_token
+        access_token_secret
+      #+END_SRC
+
+   7) Check if nomnichi_bot is alive.
+      #+BEGIN_SRC shell-script
+        $ ~/src/nomnichi_bot/bin/nomnichi_bot TEST
+      #+END_SRC
+
+   You may add ~/src/nomnichi_bot/bin directory to your $PATH for dogfooding

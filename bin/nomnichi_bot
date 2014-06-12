@@ -15,7 +15,6 @@ require 'DebiansecGetter.rb'
 ## others
 require 'time'
 require 'date'
-$KCODE = "UTF8"
 #####################
 
 

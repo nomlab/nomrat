@@ -6,7 +6,6 @@
 ##################
 require 'rubygems'
 require 'oauth'
-$KCODE = "UTF8"
 ##################
 
 ##---------------------------------------------------TweetClass:send tweet

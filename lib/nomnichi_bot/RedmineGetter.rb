@@ -8,7 +8,6 @@ require 'rubygems'
 require 'open-uri'
 require 'time'
 require 'date'
-$KCODE = "UTF8"
 #####################
 
 class RedmineGetter

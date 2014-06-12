@@ -26,6 +26,8 @@ require 'date'
 tweetsender = TweetSender.new
 mailsender = MailSender.new
 
+tweetsender.send_message(ARGV[0]) if ARGV[0]
+
 ## Tweet next Nomnichi author
 tweetsender.send_message(NomnichiGetter.new.get_writer)
 

@@ -26,6 +26,13 @@ require 'date'
 tweetsender = TweetSender.new
 mailsender = MailSender.new
 
+if ARGV[0] and ARGV[0] == '--debug'
+  $NOMNICHI_BOT_DEBUG = true
+  ARGV.shift
+else
+  $NOMNICHI_BOT_DEBUG = false
+end
+
 tweetsender.send_message(ARGV[0]) if ARGV[0]
 
 ## Tweet next Nomnichi author

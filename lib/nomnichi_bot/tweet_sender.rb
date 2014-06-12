@@ -23,6 +23,8 @@ class TweetSender
   end
 
   def send_message(string)
-    @twitter.post("/1.1/statuses/update.json", {'status' => string})
+    result = @twitter.post("/1.1/statuses/update.json", {'status' => string})
+    puts result.body if $NOMNICHI_BOT_DEBUG
+    return result
   end
 end

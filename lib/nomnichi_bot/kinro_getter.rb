@@ -12,51 +12,39 @@ require 'date'
 #####################
 
 class KinroGetter
-  def initialize
+  PAGE_URL = "https://kinro.jointv.jp/lineup/list/"
+
+  class Article
+    attr_reader :date, :title
+
+    def initialize(date, title)
+      @date, @title = date, title
+      @date = Date.parse(date) if date.is_a?(String)
+    end
+  end # class Article
+
+  def get_kinro(date = Date.today)
+    article = articles(page_content(PAGE_URL)).find {|a| a.date == date}
+    return nil unless article
+    return "本日(#{date})の金曜ロードショーは #{article.title.toutf8} です．皆様早く帰りましょう．"
   end
 
-  def get_kinro
-  ##----------------------------------------------------------------------
-  ## 金曜ロードショー
-  ##----------------------------------------------------------------------
+  private
 
-    ### Get kinro page
-    sours = ""
-    kinro_error = ""
-    broad_fri = Time.now.strftime("%Y%m%d")
-    url = "http://www.ntv.co.jp/kinro/lineup/#{broad_fri}/index.html"
-
-    begin
-      open( url ) {|f|
-        f.each_line do |line|
-          sours = line
-          break if( line =~ /<h1 class="text-off-screen">/ )
-        end
-      }
-    rescue
-      kinro_error << "Error: fail to Get kinro page."
+  def page_content(url)
+    open(url) do |f|
+      f.read
     end
+  end
 
-    ### Make kinro speach message
-    speach = ""
-    begin
-      sours =~ ( />([^<]*)</ )
-      kinro = $1.toutf8
-      speach = "本日は金曜日です．金曜ロードショーは「#{kinro}」です．皆様早く帰りましょう．" unless kinro == nil
-    rescue
-      kinro_error << "Error: fail to Make kinro speach message"
+  def articles(content)
+    regexp = /movie_data">([\d.]+)<.*?movie_tit">([^<]+)</m
+    content.scan(regexp).map do |date, title|
+      Article.new(date, title)
     end
+  end
 
-    ### return or error
-    if( kinro_error == "" )
-      return speach
-    else
-      open("errorlog.txt", "w+"){|f|
-        f.write kinro_error
-      }
-      return ""
-    end
-
-  end # method( get_kinro ) end
-
-end # class end
+  def last_article(articles)
+    articles.sort {|a,b| a.date <=> b.date}.last
+  end
+end # class KinroGetter

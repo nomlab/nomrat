@@ -1,95 +1,67 @@
 # -*- coding: utf-8 -*-
-## Create   : 2011/06/09 -Y.Kimura
-## Modified : 2013/04/10 -Y.kimura
-## Ruby Ver : 1.8.7
-## Get&Return Nomnichi author for tweet
-#####################
-require 'rubygems'
+
+## Created:  2011-06-09 - Y.Kimura
+
 require 'open-uri'
-require 'kconv'
-require 'time'
 require 'date'
-#####################
 
 class NomnichiGetter
+  PAGE_URL = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi"
 
-  def initialize
-  end
+  class Article
+    attr_reader :date, :author
+
+    def initialize(date, author)
+      @date, @author = date, author
+      @date = Date.parse(date) if date.is_a?(String)
+    end
+  end # class Article
 
   def get_writer
-  ##----------------------------------------------------------------------
-  ## main
-  ##----------------------------------------------------------------------
+    last_article = last_article(articles(page_content(PAGE_URL)))
 
-    ### Read next writer table (member)
-    error_message = ""
+    script = "次のノムニチ担当は #{next_author(last_article.author)} さんです．よろしくお願いします．"
 
-    begin
-      require 'nomnichi_bot/nom_table'
-      nom_table = NomTable.new.nom_table
-    rescue
-      error_message << "Error: fail to Read next nomnichi writer.\n"
+    if Date.today - last_article.date >= 7
+      script << "最後の記事(#{date_ago}日前)から1週間以上経ってますよ？"
     end
+    return script
+  end
 
-    ### Get nomnichi page
-    sours = ""
-    nomnichi_page = "http://tsubame.swlab.cs.okayama-u.ac.jp:54323/nomnichi"
+  private
 
-    begin
-      open( nomnichi_page ){|f|
-        f.each_line{|line|
-          sours += line
-        }
-      }
-    rescue
-      error_message << "Error: fail to Get nomnichi page.\n"
+  def page_content(url)
+    open(url) do |f|
+      f.read
     end
+  end
 
-    ### Get author&date from nomnichi
-    speaker = Array.new
-    author = nil
-    last_date = nil
-
-    begin
-      ## next date
-#      date_array = sours.scan( /<li class=\"article_list\">([^\s]*)\s/ )
-#      author = sours.scan( /<div class=\"published_on\">\s.*\s([^<]*)\s.*\s<\/div>/ )
-      article_list = sours.scan( /<li class=\"article_list\">([^<]*)<\/li>/ )
-
-      ## next author
-      article_list.each do |article|
-        date_and_author = article.join("").split(" ")
-        name = date_and_author.last
-        name.strip!
-        last_date = date_and_author.first
-        speaker = nom_table[name] if( nom_table[name] != nil)
-        break if( nom_table[name] != nil)
-      end
-      error_message << "Error: fail to Define next author.\n" if speaker.first == nil
-
-    rescue
-      error_message << "Error: fail to Get author&date from nomnichi.\n"
+  def articles(content)
+    content.scan(/>(\d{4}-\d{2}-\d{2}) +([\da-z-]+)</).map do |date, author|
+      Article.new(date, author)
     end
+  end
 
-    ### tweet next author
-    speach = "次のノムニチ担当は#{speaker.first}さんです．よろしくお願いします．"
-    week_ago = (Time.now - 7*24*60*60)
-    date_ago = (Time.now - Time.parse(last_date) ).to_i / (60*60*24)
+  def last_article(articles)
+    articles.sort {|a,b| a.date <=> b.date}.last
+  end
 
-    speach << "最後の記事(#{date_ago}日前)から1週間以上経ってますよ？" if( week_ago > Time.parse(last_date) )
-
-    if( error_message == "" )
-      #ret = tm.send_message( speach )
-      return speach
-    else
-      errors = Time.now.strftime("%Y/%m/%d : ") + "\n"
-      open("errorlog.txt", "w+"){|f|
-        errors << error_message
-        f.write errors
-      }
-      return ""
-    end
-
-  end # method( get_writer ) end
-
-end # class end
+  def next_author(author)
+    author_order = {
+      "nom"       => "kitagawa",
+      "kitagawa"  => "danjo-m",
+      "danjo-m"   => "nakao",
+      "nakao"     => "murata",
+      "murata"    => "okada",
+      "okada"     => "kitagaki",
+      "kitagaki"  => "masuda-y",
+      "masuda-y"  => "ikeda-y",
+      "ikeda-y"   => "ichikawa",
+      "ichikawa"  => "kobayashi",
+      "kobayashi" => "nakamura",
+      "nakamura"  => "fujita",
+      "fujita"    => "nom"
+    }
+    author_order[author] || "??"
+  end
+end # class NomnichiGetter

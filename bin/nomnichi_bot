@@ -89,7 +89,7 @@ if( debiansec_message != [] )
   body = head + debiansec_message.to_s
                   # body, setting file       , _                 , _        , parameter
   mailsender.send( body, "_debiansec_mail.stg", host = "localhost", port = 25, "#{Date.today.to_s}" )
-  
+
 end
 
 ##----------------------------------------------------------------------

@@ -25,7 +25,7 @@ class KinroGetter
     kinro_error = ""
     broad_fri = Time.now.strftime("%Y%m%d")
     url = "http://www.ntv.co.jp/kinro/lineup/#{broad_fri}/index.html"
-    
+
     begin
       open( url ) {|f|
         f.each_line do |line|
@@ -36,7 +36,7 @@ class KinroGetter
     rescue
       kinro_error << "Error: fail to Get kinro page."
     end
-    
+
     ### Make kinro speach message
     speach = ""
     begin
@@ -46,7 +46,7 @@ class KinroGetter
     rescue
       kinro_error << "Error: fail to Make kinro speach message"
     end
-    
+
     ### return or error
     if( kinro_error == "" )
       return speach
@@ -56,7 +56,7 @@ class KinroGetter
       }
       return ""
     end
-    
+
   end # method( get_kinro ) end
-  
+
 end # class end

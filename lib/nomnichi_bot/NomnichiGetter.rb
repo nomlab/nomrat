@@ -4,7 +4,6 @@
 ## Ruby Ver : 1.8.7
 ## Get&Return Nomnichi author for tweet
 #####################
-require 'NomTable.rb'
 require 'rubygems'
 require 'open-uri'
 require 'kconv'
@@ -26,6 +25,7 @@ class NomnichiGetter
     error_message = ""
     
     begin
+      require 'nomnichi_bot/NomTable'
       nom_table = NomTable.new.nom_table
     rescue
       error_message << "Error: fail to Read next nomnichi writer.\n"

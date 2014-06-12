@@ -25,7 +25,7 @@ class NomnichiGetter
     error_message = ""
 
     begin
-      require 'nomnichi_bot/NomTable'
+      require 'nomnichi_bot/nom_table'
       nom_table = NomTable.new.nom_table
     rescue
       error_message << "Error: fail to Read next nomnichi writer.\n"

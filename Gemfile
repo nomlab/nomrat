@@ -1,2 +1,5 @@
 source 'https://rubygems.org'
-gem 'google-api-client'
+# Specify your gem's dependencies in nomnichi_bot.gemspec
+gemspec
+gem "oauth"
+

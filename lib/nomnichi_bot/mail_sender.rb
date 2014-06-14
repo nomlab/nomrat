@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
-## Created  : 2012/10/31 -Y.Kimura
-## Modified : 2013/04/10 -Y.Kimura
-## Ruby Ver : 1.8.7
-## Send EMail
-##################
+
+## Created: 2012-10-31 Y.Kimura
+## Author: Y.Kimura
+
 require 'nkf'
 require 'net/smtp'
-$KCODE = "UTF8"
-##################
 
-##---------------------------------------------------Class:send mail
 class MailSender
 
   def send(body, setting_path, host = "localhost", port = 25, itr = "")
@@ -38,5 +34,4 @@ EOT
       smtp.send_mail body, from, to
     end
   end
-
 end

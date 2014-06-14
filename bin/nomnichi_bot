@@ -1,59 +1,48 @@
+#!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-## Create   : 2011/06/09 -Y.Kimura
-## Modified : 2013/04/11 -Y.kimura
-## Ruby Ver : 1.8.7
-## Inform Nomnichi author by tweet
-#####################
-## sender class
-require 'TweetSender.rb'
-require 'MailSender.rb'
-## getter class
-require 'NomnichiGetter.rb'
-require 'KinroGetter.rb'
-require 'RedmineGetter.rb'
-require 'DebiansecGetter.rb'
-require 'CalendarGetter.rb'
-## others
+
+## Created: 2011-06-09
+## Authors: Y.Kimura, Yoshinar Nomura
+
+## Use Gemfile
+if File.symlink?(__FILE__) and ENV["RBENV_VERSION"]
+  ENV["RBENV_VERSION"] = nil
+  shims_path = File.expand_path("shims", ENV["RBENV_ROOT"])
+  ENV["PATH"] = shims_path + ":" + ENV["PATH"]
+  exec(File.readlink(__FILE__), *ARGV)
+end
+
+ENV["BUNDLE_GEMFILE"] = File.expand_path("../../Gemfile", __FILE__)
+
+Encoding.default_external="UTF-8"
+
+require 'rubygems'
+require 'bundler/setup'
+require 'nomnichi_bot'
 require 'time'
 require 'date'
-$KCODE = "UTF8"
-#####################
 
-
-### initialize
-error_message = ""
 tweetsender = TweetSender.new
 mailsender = MailSender.new
 
-##----------------------------------------------------------------------
+if ARGV[0] and ARGV[0] == '--debug'
+  $NOMNICHI_BOT_DEBUG = true
+  ARGV.shift
+else
+  $NOMNICHI_BOT_DEBUG = false
+end
+
+tweetsender.send_message(ARGV[0]) if ARGV[0]
+
 ## Tweet next Nomnichi author
-##----------------------------------------------------------------------
-begin
-  nomnichigetter = NomnichiGetter.new
-  writer_message = nomnichigetter.get_writer
-  
-  if( writer_message == "" )
-    error_message << "[nom_bot.rb/nomnichi_author]\n"
-  else
-    tweetsender.send_message( writer_message )
-  end
-rescue
-  error_message << "I cannot get nomnichi articles"
-end
+tweetsender.send_message(NomnichiGetter.new.get_writer)
 
-##----------------------------------------------------------------------
 ## Tweet Kinro title
-##----------------------------------------------------------------------
-if(Time.now.wday == 5) ## today is Friday???
-  kinrogetter = KinroGetter.new
-  kinro_message = kinrogetter.get_kinro
-
-  if( kinro_message == "" )
-    error_message << "[nom_bot.rb/kinro_title]\n"
-  else
-    tweetsender.send_message( kinro_message )
-  end
+if message = KinroGetter.new.get_kinro
+  tweetsender.send_message(message)
 end
+
+exit 0
 
 ##----------------------------------------------------------------------
 ## Tweet GNgroups meeting and Mail Tickets
@@ -86,7 +75,7 @@ if( debiansec_message != [] )
   body = head + debiansec_message.to_s
                   # body, setting file       , _                 , _        , parameter
   mailsender.send( body, "_debiansec_mail.stg", host = "localhost", port = 25, "#{Date.today.to_s}" )
-  
+
 end
 
 ##----------------------------------------------------------------------

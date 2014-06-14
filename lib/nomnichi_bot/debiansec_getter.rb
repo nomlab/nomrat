@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-## Create   : 2013/04/10 -Y.Kimura
-## Modified : 2013/04/11 -Y.kimura
-## Ruby Ver : 1.8.7
-## Get&Return _kinro_
-#####################
+
+## Created: 2013-04-10 -Y.Kimura
+## Authors: Y.Kimura, Yoshinari Nomura
+
 require 'rubygems'
 require 'open-uri'
 require 'kconv'
 require 'time'
 require 'date'
-#####################
 
 class DebiansecGetter
   def initialize

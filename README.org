@@ -1,7 +1,7 @@
 #+TITLE: nomnichi_bot
-#+AUTHOR: 
+#+AUTHOR: Y.Kimura
 #+EMAIL:
-#+DATE: 
+#+DATE: Created 2011-06-09
 #+OPTIONS: H:3 num:2 toc:nil
 #+OPTIONS: ^:nil @:t \n:nil ::t |:t f:t TeX:t
 #+OPTIONS: skip:nil
@@ -16,7 +16,6 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE: ja
-#+STARTUP: odd
 #+LATEX_CLASS: jsarticle
 #+LATEX_CLASS_OPTIONS: [a4j]
 # #+LATEX_HEADER: \usepackage{plain-article}
@@ -25,7 +24,6 @@
 # #+LaTeX: \thispagestyle{empty}
 
 * nomnichi_bot
-
 ** What is nomnichi_bot?
 
   Nomnichi is a blog of nomura-laboratory's students.

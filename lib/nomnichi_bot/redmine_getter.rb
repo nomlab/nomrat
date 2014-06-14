@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-## Created  : 2011/10/31 -Y.Kimura
-## Modified : 2013/04/11 -Y.Kimura
-## Ruby Ver : 1.8.7
-## Get&Return next Itr and message for tweet or mail
-#####################
+
+## Created: 2011-10-31
+## Author: Y.Kimura
+
 require 'rubygems'
 require 'open-uri'
 require 'time'
 require 'date'
-#####################
 
 class RedmineGetter
 

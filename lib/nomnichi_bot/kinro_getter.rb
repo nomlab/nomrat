@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-## Create   : 2011/06/09 -Y.Kimura
-## Modified : 2013/04/10 -Y.kimura
-## Ruby Ver : 1.8.7
-## Get&Return _kinro_
-#####################
+
+## Created: 2011-06-09
+## Authors: Y.Kimura, Yoshinari Nomura
+
 require 'rubygems'
 require 'open-uri'
 require 'kconv'
 require 'time'
 require 'date'
-#####################
 
 class KinroGetter
   PAGE_URL = "https://kinro.jointv.jp/lineup/list/"

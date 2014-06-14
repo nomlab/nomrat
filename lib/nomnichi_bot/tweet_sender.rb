@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-## Created: 2011-06-09 Y.Kimura
+## Created: 2011-06-09
+## Authors: Y.Kimura, Yoshinari Nomura
 
 require 'oauth'
 

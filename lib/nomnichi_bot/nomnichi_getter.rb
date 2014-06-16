@@ -23,7 +23,9 @@ class NomnichiGetter
 
     script = "次のノムニチ担当は #{next_author(last_article.author)} さんです．よろしくお願いします．"
 
-    if Date.today - last_article.date >= 7
+    date_ago = (Date.today - last_article.date).to_i
+
+    if date_ago >= 7
       script << "最後の記事(#{date_ago}日前)から1週間以上経ってますよ？"
     end
     return script

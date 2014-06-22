@@ -19,16 +19,23 @@ require 'rubygems'
 require 'bundler/setup'
 require 'nomnichi_bot'
 
-tweetsender = TweetSender.new
 mailsender = MailSender.new
 
-if ARGV[0] and ARGV[0] == '--debug'
-  $NOMNICHI_BOT_DEBUG = true
+$NOMNICHI_BOT_DEBUG = false
+$NOMNICHI_BOT_TEST  = false
+
+# parse options
+while ARGV[0] =~ /^--(.*)/
+  case $1
+  when "debug"
+    $NOMNICHI_BOT_DEBUG = true
+  when "test"
+    $NOMNICHI_BOT_TEST = true
+  end
   ARGV.shift
-else
-  $NOMNICHI_BOT_DEBUG = false
 end
 
+tweetsender = $NOMNICHI_BOT_TEST ? TweetTest.new : TweetSender.new
 tweetsender.send_message(ARGV[0]) if ARGV[0]
 
 ## Tweet next Nomnichi author

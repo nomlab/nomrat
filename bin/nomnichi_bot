@@ -33,29 +33,17 @@ while ARGV[0] =~ /^--(.*)/
   ARGV.shift
 end
 
-twitter = $NOMNICHI_BOT_TEST ? TweetTest.new : TweetSender.new
+twitter = $NOMNICHI_BOT_TEST ? NomnichiBot::TweetTest.new : NomnichiBot::TweetSender.new
 reporter = NomnichiBot::Reporter
 
 twitter.send_message(ARGV[0]) if ARGV[0]
 
-## Tweet next Nomnichi author
-if msg = reporter.nomnichi.report
-  twitter.send_message(msg)
-end
+subjects = [:nomnichi, :tvshow, :weather, :security_advisory]
 
-## Tweet today's TV show title
-if msg = reporter.tvshow.report
-  twitter.send_message(msg)
-end
-
-## Tweet today's weather
-if msg = reporter.weather.report
-  twitter.send_message(msg)
-end
-
-## Debian Security Advisory
-if msg = reporter.security_advisory.report
-  twitter.send_message(msg)
+subjects.each do |subject|
+  if msg = reporter.report(subject)
+    twitter.send_message(msg)
+  end
 end
 
 exit 0

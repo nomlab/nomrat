@@ -1,19 +1,15 @@
 module NomnichiBot
   module Reporter
-    def self.nomnichi
-      Nomnichi.new
-    end
 
-    def self.security_advisory
-      SecurityAdvisory.new
-    end
-
-    def self.tvshow
-      Tvshow.new
-    end
-
-    def self.weather
-      Weather.new
+    def self.report(subject)
+      reporters = {
+        :nomnichi          => Nomnichi,
+        :security_advisory => SecurityAdvisory,
+        :tvshow            => Tvshow,
+        :weather           => Weather
+      }
+      return reporters[subject].new.report if reporters[subject]
+      raise ArgumentError, "unknown subject #{subject}"
     end
 
     dir = File.dirname(__FILE__) + "/reporter"

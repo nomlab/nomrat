@@ -4,7 +4,7 @@ module NomnichiBot
     class Nomnichi
 
       def report
-        return nil unless article = NomnichiBot::Scrap.nomnichi.last
+        return nil unless article = Scrap.open(:nomnichi).last
         msg = "次のノムニチ担当は #{next_author(article.author)} さんです．"
 
         if (ago = (Date.today - article.date).to_i) >= 7

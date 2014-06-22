@@ -4,7 +4,7 @@ module NomnichiBot
     class SecurityAdvisory
 
       def report
-        return nil unless dsa = NomnichiBot::Scrap.debian_security_advisory.today
+        return nil unless dsa = Scrap.open(:debian_security_advisory).today
         return "Debian Security Advisory (#{dsa.date}): #{dsa.title} #{dsa.link}"
       end
 

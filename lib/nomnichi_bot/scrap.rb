@@ -4,20 +4,15 @@ require "json"
 
 module NomnichiBot
   module Scrap
-    def self.nomnichi
-      Nomnichi.new
-    end
-
-    def self.debian_security_advisory
-      DebianSecurityAdvisory.new
-    end
-
-    def self.kinro
-      Kinro.new
-    end
-
-    def self.weather
-      Weather.new
+    def self.open(scrap_name)
+      scraps = {
+        :debian_security_advisory => DebianSecurityAdvisory,
+        :nomnichi                 => Nomnichi,
+        :kinro                    => Kinro,
+        :weather                  => Weather
+      }
+      return scraps[scrap_name].new if scraps[scrap_name]
+      raise ArgumentError, "unknown scrap #{scrap_name}"
     end
 
     dir = File.dirname(__FILE__) + "/scrap"

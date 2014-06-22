@@ -40,8 +40,9 @@
 ** Functions
 
    1) Remind next nomnichi author
-   2) Inform kinro title
-   3) Remind GN delopment meeting
+   2) Inform today's weather in Okayama
+   3) Inform kinro (TV show) title
+   4) Remind group schedule
 
 ** INSTALL for developers:
    1) Install rbenv + ruby-build
@@ -71,7 +72,7 @@
 
    3) Clone nomnichi_bot from github
       #+BEGIN_SRC shell-script
-        $ git clone git@github.com:kimura-y/nomnichi_bot.git ~/src/nomnichi_bot
+        $ git clone git@github.com:nomlab/nomnichi_bot.git ~/src/nomnichi_bot
       #+END_SRC
 
    4) Set default ruby version in nomnichi_bot project
@@ -89,7 +90,7 @@
 
    6) Place OAuth credentials as _twitter_auth.stg
       #+BEGIN_SRC shell-script
-        # This file is expected to contain five lines:
+        # This file is expected to contain four lines:
         $ cat ~/src/nomnichi_bot/_twitter_auth.stg
         consumer_key
         consumer_secret

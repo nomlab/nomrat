@@ -8,6 +8,10 @@ module NomnichiBot
       Nomnichi.new
     end
 
+    def self.debian_security_advisory
+      DebianSecurityAdvisory.new
+    end
+
     def self.kinro
       Kinro.new
     end
@@ -17,10 +21,11 @@ module NomnichiBot
     end
 
     dir = File.dirname(__FILE__) + "/scrap"
-    autoload :Base,     "#{dir}/base.rb"
-    autoload :Nomnichi, "#{dir}/nomnichi.rb"
-    autoload :Kinro,    "#{dir}/kinro.rb"
-    autoload :Weather,  "#{dir}/weather.rb"
+    autoload :Base,                   "#{dir}/base.rb"
+    autoload :DebianSecurityAdvisory, "#{dir}/debian_security_advisory.rb"
+    autoload :Nomnichi,               "#{dir}/nomnichi.rb"
+    autoload :Kinro,                  "#{dir}/kinro.rb"
+    autoload :Weather,                "#{dir}/weather.rb"
 
   end # module Scrap
 end # module NomnichiBot

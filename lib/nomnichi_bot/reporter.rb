@@ -4,6 +4,10 @@ module NomnichiBot
       Nomnichi.new
     end
 
+    def self.security_advisory
+      SecurityAdvisory.new
+    end
+
     def self.tvshow
       Tvshow.new
     end
@@ -13,9 +17,10 @@ module NomnichiBot
     end
 
     dir = File.dirname(__FILE__) + "/reporter"
-    autoload :Nomnichi, "#{dir}/nomnichi.rb"
-    autoload :Tvshow,   "#{dir}/tvshow.rb"
-    autoload :Weather,  "#{dir}/weather.rb"
+    autoload :Nomnichi,         "#{dir}/nomnichi.rb"
+    autoload :SecurityAdvisory, "#{dir}/security_advisory.rb"
+    autoload :Tvshow,           "#{dir}/tvshow.rb"
+    autoload :Weather,          "#{dir}/weather.rb"
 
   end # module Reporter
 end # module NomnichiBot

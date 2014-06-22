@@ -53,4 +53,9 @@ if msg = reporter.weather.report
   twitter.send_message(msg)
 end
 
+## Debian Security Advisory
+if msg = reporter.security_advisory.report
+  twitter.send_message(msg)
+end
+
 exit 0

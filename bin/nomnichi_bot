@@ -19,8 +19,6 @@ require 'rubygems'
 require 'bundler/setup'
 require 'nomnichi_bot'
 
-mailsender = MailSender.new
-
 $NOMNICHI_BOT_DEBUG = false
 $NOMNICHI_BOT_TEST  = false
 
@@ -35,15 +33,24 @@ while ARGV[0] =~ /^--(.*)/
   ARGV.shift
 end
 
-tweetsender = $NOMNICHI_BOT_TEST ? TweetTest.new : TweetSender.new
-tweetsender.send_message(ARGV[0]) if ARGV[0]
+twitter = $NOMNICHI_BOT_TEST ? TweetTest.new : TweetSender.new
+reporter = NomnichiBot::Reporter
+
+twitter.send_message(ARGV[0]) if ARGV[0]
 
 ## Tweet next Nomnichi author
-tweetsender.send_message(NomnichiGetter.new.get_writer)
+if msg = reporter.nomnichi.report
+  twitter.send_message(msg)
+end
 
-## Tweet Kinro title
-if message = KinroGetter.new.get_kinro
-  tweetsender.send_message(message)
+## Tweet today's TV show title
+if msg = reporter.tvshow.report
+  twitter.send_message(msg)
+end
+
+## Tweet today's weather
+if msg = reporter.weather.report
+  twitter.send_message(msg)
 end
 
 exit 0

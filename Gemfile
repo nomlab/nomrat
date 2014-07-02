@@ -4,3 +4,4 @@ gemspec
 gem "oauth"
 
 gem "mechanize"
+gem "google-api-client"

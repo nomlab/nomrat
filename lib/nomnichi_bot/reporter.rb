@@ -3,6 +3,7 @@ module NomnichiBot
 
     def self.report(subject)
       reporters = {
+        :calendar          => Calendar,
         :nomnichi          => Nomnichi,
         :security_advisory => SecurityAdvisory,
         :tvshow            => Tvshow,
@@ -13,6 +14,7 @@ module NomnichiBot
     end
 
     dir = File.dirname(__FILE__) + "/reporter"
+    autoload :Calendar,         "#{dir}/calendar.rb"
     autoload :Nomnichi,         "#{dir}/nomnichi.rb"
     autoload :SecurityAdvisory, "#{dir}/security_advisory.rb"
     autoload :Tvshow,           "#{dir}/tvshow.rb"

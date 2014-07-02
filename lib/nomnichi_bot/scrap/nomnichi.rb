@@ -16,6 +16,22 @@ module NomnichiBot
 
       private
 
+      def create_articles(content)
+        content.scan(/>(\d{4}-\d{2}-\d{2}) +([\da-z-]+)</).map do |date, author|
+          Article.new(date, author)
+        end
+      end
+
+      def fetch_content(config)
+        login(config)
+        begin
+          @agent.get(PAGE_URL).body
+        rescue Mechanize::ResponseCodeError => e
+          STDERR.print "(url: #{e.page.uri}.\n"
+          return ""
+        end
+      end
+
       def login(config)
         @agent = ::Mechanize.new
         @agent.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -38,22 +54,6 @@ module NomnichiBot
         form.submit
         return self
       end
-
-      def content(url)
-        begin
-          @agent.get(url).body
-        rescue Mechanize::ResponseCodeError => e
-          STDERR.print "(url: #{e.page.uri}.\n"
-          return ""
-        end
-      end
-
-      def create_articles(content)
-        content.scan(/>(\d{4}-\d{2}-\d{2}) +([\da-z-]+)</).map do |date, author|
-          Article.new(date, author)
-        end
-      end
-
     end # class Nomnichi
   end # module Scrap
 end # module NomnichiBot

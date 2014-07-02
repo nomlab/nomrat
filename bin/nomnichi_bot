@@ -38,7 +38,7 @@ reporter = NomnichiBot::Reporter
 
 twitter.send_message(ARGV[0]) if ARGV[0]
 
-subjects = [:nomnichi, :tvshow, :weather, :security_advisory]
+subjects = [:nomnichi, :tvshow, :weather, :security_advisory, :calendar]
 
 subjects.each do |subject|
   if msg = reporter.report(subject)

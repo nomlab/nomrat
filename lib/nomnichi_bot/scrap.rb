@@ -11,7 +11,10 @@ module NomnichiBot
         :kinro                    => Kinro,
         :weather                  => Weather
       }
-      return scraps[scrap_name].new if scraps[scrap_name]
+      if scraps[scrap_name]
+        config = Config.load(scrap_name)
+        return scraps[scrap_name].new(config)
+      end
       raise ArgumentError, "unknown scrap #{scrap_name}"
     end
 

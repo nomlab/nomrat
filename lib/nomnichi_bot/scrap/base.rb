@@ -12,8 +12,8 @@ module NomnichiBot
         end
       end # class Article
 
-      def initialize
-        @articles = create_articles(page_content(page_url))
+      def initialize(config = nil)
+        @articles = create_articles(page_content(page_url, config))
       end
 
       def today
@@ -30,7 +30,15 @@ module NomnichiBot
         self.class.const_get(:PAGE_URL)
       end
 
-      def page_content(url)
+      def page_content(url, config = nil)
+        login(config) if config
+        content(url)
+      end
+
+      def login(config)
+      end
+
+      def content(url)
         open(url) do |f|
           f.read
         end

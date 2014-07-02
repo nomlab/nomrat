@@ -8,19 +8,18 @@ require 'oauth'
 module NomnichiBot
   class TweetSender
     def initialize
-      @consumer_key, @consumer_secret, @access_token, @access_token_secret =
-        open( "_twitter_auth.stg" ).read.split("\n")
+      config = Config.load(:twitter)
 
-      @consumer = OAuth::Consumer.new(
-        @consumer_key,
-        @consumer_secret,
+      consumer = OAuth::Consumer.new(
+        config["consumer_key"],
+        config["consumer_secret"],
         :site => 'https://api.twitter.com'
       )
 
       @twitter = OAuth::AccessToken.new(
-        @consumer,
-        @access_token,
-        @access_token_secret
+        consumer,
+        config["access_token"],
+        config["access_token_secret"]
       )
     end
 

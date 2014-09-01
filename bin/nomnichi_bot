@@ -41,6 +41,7 @@ twitter.send_message(ARGV[0]) if ARGV[0]
 subjects = [:nomnichi, :tvshow, :weather, :security_advisory, :calendar]
 
 subjects.each do |subject|
+  print "* #{subject}:\n" if $NOMNICHI_BOT_TEST || $NOMNICHI_BOT_DEBUG
   if msg = reporter.report(subject)
     twitter.send_message(msg)
   end

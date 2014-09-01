@@ -51,5 +51,6 @@ class CalendarMessenger
         end
       end
     end
+    return message
   end
 end

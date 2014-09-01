@@ -14,8 +14,9 @@ module NomnichiBot
             message << "#{event.summary}の#{diff}日前です．"
           end
         end
-        message << "進捗どうですか?" if message != ""
-        return message.chomp
+        message << "進捗どうですか?" unless message == ""
+        return message.chomp unless message == ""
+        return nil
       end
 
     end # class Calendar

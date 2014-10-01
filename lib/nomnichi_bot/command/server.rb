@@ -5,13 +5,17 @@ require "json"
 module NomnichiBot
   module Command
     class Server
-      def initialize(crt_file, rsa_file, token, servername = "localhost", port = 443, debug = false)
-        NomnichiBot::Server.run(crt_file, rsa_file, token, servername, port, debug)
+      def initialize(crt_file, rsa_file, token, username, servername = "localhost", port = 443, debug = false)
+        NomnichiBot::Server.run(crt_file, rsa_file, token, username, servername, port, debug)
       end
     end # class Server
   end # module Command
 
   class Responder
+    def initialize(myname)
+      @myname = myname
+    end
+
     # token=xxxxxxxxxxxxxxxx
     # team_id=T0001
     # channel_id=C2147483705
@@ -22,12 +26,14 @@ module NomnichiBot
     # text=googlebot: What is the air-speed velocity of an unladen swallow?
     # trigger_word=googlebot:
     def respond(params)
+      return nil if params[:user_name] == @myname
+
       username = if params[:user_name]
                    '@' + params[:user_name]
                  else
                    ''
                  end
-      return {:text => "#{username} Hi!"}.to_json
+      return {:username => @myname, :text => "#{username} Hi!"}.to_json
     end
   end # class Responder
 
@@ -44,9 +50,9 @@ module NomnichiBot
     ################################################################
     ## class methods
 
-    def self.run(crt_file, rsa_file, token, servername = "localhost", port = 443, debug = false)
+    def self.run(crt_file, rsa_file, token, username, servername = "localhost", port = 443, debug = false)
       @token     = token
-      @responder = Responder.new
+      @responder = Responder.new(username)
 
       opt = ssl_option(*create_cert(crt_file, rsa_file, servername), port, debug)
 

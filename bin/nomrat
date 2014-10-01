@@ -55,12 +55,13 @@ class NomnichiBotCLI < Thor
 
     webhook_token  = config["webhook_token"]
     servername     = config["webhook_servername"]
-    port          = options[:port]
+    port           = options[:port]
     debug          = options[:debug]
+    username       = config[:username]
 
     crt_file = "~/.config/nomnichi_bot/ssl.crt"
     rsa_file = "~/.config/nomnichi_bot/ssl.key"
-    NomnichiBot::Command::Server.new(crt_file, rsa_file, webhook_token, servername, port, debug)
+    NomnichiBot::Command::Server.new(crt_file, rsa_file, webhook_token, username, servername, port, debug)
   end
 
   ################################################################

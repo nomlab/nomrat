@@ -26,7 +26,7 @@ module NomnichiBot
     # text=googlebot: What is the air-speed velocity of an unladen swallow?
     # trigger_word=googlebot:
     def respond(params)
-      return nil if params[:user_name] == @myname
+      return nil if params[:user_name] == @myname || params[:user_name] == "slackbot"
 
       username = if params[:user_name]
                    '@' + params[:user_name]

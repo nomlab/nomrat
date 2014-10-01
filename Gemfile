@@ -3,5 +3,7 @@ source 'https://rubygems.org'
 gemspec
 gem "oauth"
 
+gem "thor"
 gem "mechanize"
 gem "google-api-client"
+gem "sinatra"

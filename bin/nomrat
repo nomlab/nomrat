@@ -52,13 +52,15 @@ class NomnichiBotCLI < Thor
 
   def server
     config = NomnichiBot::Config.load(:slack)
-    @webhook_token = config["webhook_token"]
-    @server_port   = options[:port]
-    debug = options[:debug]
+
+    webhook_token  = config["webhook_token"]
+    servername     = config["webhook_servername"]
+    port          = options[:port]
+    debug          = options[:debug]
 
     crt_file = "~/.config/nomnichi_bot/ssl.crt"
     rsa_file = "~/.config/nomnichi_bot/ssl.key"
-    NomnichiBot::Command::Server.new(crt_file, rsa_file, @webhook_token, @server_port, debug)
+    NomnichiBot::Command::Server.new(crt_file, rsa_file, webhook_token, servername, port, debug)
   end
 
   ################################################################

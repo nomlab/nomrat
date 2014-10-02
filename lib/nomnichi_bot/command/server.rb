@@ -47,12 +47,23 @@ module NomnichiBot
       responder.respond(params)
     end
 
+    post "/github" do
+      request.body.rewind
+      body = request.body.read
+      verify_github_signature(body, request.env["X_HUB_SIGNATURE"], secret)
+
+      json = JSON.parse(body)
+      puts "I got some JSON: #{json.inspect}"
+      # responder.respond(params)
+    end
+
     ################################################################
     ## class methods
 
     def self.run(crt_file, rsa_file, token, username, servername = "localhost", port = 443, debug = false)
       @token     = token
       @responder = Responder.new(username)
+      @config = NomnichiBot::Config.load(:github)
 
       opt = ssl_option(*create_cert(crt_file, rsa_file, servername), port, debug)
 
@@ -66,11 +77,12 @@ module NomnichiBot
     ## class instance variables
 
     class << self
-      attr_accessor :token, :responder
+      attr_accessor :token, :responder, :config
     end
 
     def token;     self.class.token;     end
     def responder; self.class.responder; end
+    def config;    self.class.config;    end
 
     ################################################################
     # private_class_methods
@@ -108,6 +120,18 @@ module NomnichiBot
     end
 
     private_class_method :create_cert, :ssl_option
+
+    ################################################################
+    private
+
+    def verify_github_signature(body, signature, secret)
+      sha1 = 'sha1=' +
+        OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), secret, body)
+
+      unless Rack::Utils.secure_compare(sha1, signature)
+        return halt 500, "Signatures didn't match!"
+      end
+    end
 
   end # class Server
 end # module NomnichiBot

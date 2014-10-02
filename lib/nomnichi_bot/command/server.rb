@@ -50,11 +50,19 @@ module NomnichiBot
     post "/github" do
       request.body.rewind
       body = request.body.read
-      verify_github_signature(body, request.env["X_HUB_SIGNATURE"], secret)
+      # verify_github_signature(body, request.env["X_HUB_SIGNATURE"], config[:secret])
 
       json = JSON.parse(body)
-      puts "I got some JSON: #{json.inspect}"
-      # responder.respond(params)
+
+      if request.env["X_GITHUB_EVENT"] == "pull_request" && json["action"] == "opened"
+        pr = json["pull_request"]
+        url = pr["url"]
+        title = pr["title"]
+        message = "PR received!!: TITLE: #{title}, URL: #{url}\n"
+        NomnichiBot::SlackSender.new.send_message(message, "sandbox")
+      end
+
+      return nil
     end
 
     ################################################################

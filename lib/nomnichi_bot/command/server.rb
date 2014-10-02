@@ -1,6 +1,7 @@
 require "sinatra/base"
 require "webrick/https"
 require "json"
+require "pp"
 
 module NomnichiBot
   module Command
@@ -39,7 +40,7 @@ module NomnichiBot
 
   class Server < Sinatra::Base
 
-    post "/" do
+    post "/slack" do
       unless params[:token] == token
         halt 403, "Forbidden"
       end
@@ -48,17 +49,28 @@ module NomnichiBot
     end
 
     post "/github" do
+      event     = request.env["HTTP_X_GITHUB_EVENT"]
+      signature = request.env["HTTP_X_HUB_SIGNATURE"]
+      delivery  = request.env["HTTP_X_GITHUB_DELIVERY"]
+
       request.body.rewind
       body = request.body.read
-      # verify_github_signature(body, request.env["X_HUB_SIGNATURE"], config[:secret])
 
-      json = JSON.parse(body)
+      verify_github_signature(body, signature, config["secret"])
 
-      if request.env["X_GITHUB_EVENT"] == "pull_request" && json["action"] == "opened"
-        pr = json["pull_request"]
-        url = pr["url"]
-        title = pr["title"]
-        message = "PR received!!: TITLE: #{title}, URL: #{url}\n"
+      json   = JSON.parse(body)
+      action = json["action"]
+
+      puts "*** Received event:#{event}, action: #{action}, signature:#{signature}, delivery:#{delivery}"
+
+      if event == "pull_request" && action == "opened"
+        pr     = json["pull_request"]
+        url    = pr["url"]
+        title  = pr["title"]
+        number = pr["number"]
+
+        message = "PR ##{number}: #{title} <#{url}>\n"
+        puts message
         NomnichiBot::SlackSender.new.send_message(message, "sandbox")
       end
 

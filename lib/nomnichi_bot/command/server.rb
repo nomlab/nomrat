@@ -34,6 +34,7 @@ module NomnichiBot
                  else
                    ''
                  end
+      puts "Respond to #{params[:user_name]}"
       return {:username => @myname, :text => "#{username} Hi!"}.to_json
     end
   end # class Responder
@@ -65,13 +66,13 @@ module NomnichiBot
 
       if event == "pull_request" && action == "opened"
         pr     = json["pull_request"]
-        url    = pr["url"]
+        url    = pr["html_url"]
         title  = pr["title"]
         number = pr["number"]
 
         message = "PR ##{number}: #{title} <#{url}>\n"
         puts message
-        NomnichiBot::SlackSender.new.send_message(message, "sandbox")
+        NomnichiBot::SlackSender.new.send_message(message, "#sandbox")
       end
 
       return nil

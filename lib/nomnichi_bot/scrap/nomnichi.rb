@@ -17,7 +17,7 @@ module NomnichiBot
       private
 
       def create_articles(content)
-        content.scan(/>(\d{4}-\d{2}-\d{2}) +([\da-z-]+)</).map do |date, author|
+        content.scan(/>(\d{4}-\d{2}-\d{2})[\n ]+([\da-z-]+)</).map do |date, author|
           Article.new(date, author)
         end
       end

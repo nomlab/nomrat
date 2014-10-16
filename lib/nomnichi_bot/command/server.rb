@@ -70,9 +70,9 @@ module NomnichiBot
         title  = pr["title"]
         number = pr["number"]
 
-        message = "PR ##{number}: #{title} <#{url}>\n"
+        message = "PR <#{url}|##{number}> #{title} \n"
         puts message
-        NomnichiBot::SlackSender.new.send_message(message, "#sandbox")
+        NomnichiBot::SlackSender.new.send_message(message, "#notifications")
       end
 
       return nil

@@ -17,7 +17,7 @@ module NomnichiBot
     def send_message(string, channel = @channel)
       uri = URI.parse(@post_uri)
       res = nil
-      json = {channel: @channel, username: @username, text: string}.to_json
+      json = {channel: channel, username: @username, text: string}.to_json
       request = "payload=" + json
 
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|

@@ -18,11 +18,7 @@ module NomnichiBot
 
       def next_author(author)
         author_order = {
-          "nom"       => "kitagawa",
-          "kitagawa"  => "danjo-m",
-          "danjo-m"   => "nakao",
-          "nakao"     => "murata",
-          "murata"    => "okada",
+          "nom"       => "okada",
           "okada"     => "kitagaki",
           "kitagaki"  => "masuda-y",
           "masuda-y"  => "ikeda-y",
@@ -30,9 +26,14 @@ module NomnichiBot
           "ichikawa"  => "kobayashi",
           "kobayashi" => "nakamura",
           "nakamura"  => "fujita",
-          "fujita"    => "nom"
+          "fujita"    => "emi",
+          "emi"       => "suetake",
+          "suetake"   => "sugi",
+          "sugi"      => "date",
+          "date"      => "yoshida-h",
+          "yoshida-h" => "nom"
         }
-        author_order[author] || "??"
+        author_order[author] || "nom"
       end
 
     end # class Nomnichi

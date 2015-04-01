@@ -70,7 +70,10 @@ module NomnichiBot
         title  = pr["title"]
         number = pr["number"]
 
-        message = "PR <#{url}|##{number}> #{title} \n"
+        repos  = json["repository"]
+        repos_name = repos["full_name"]
+
+        message = "[#{repos_name}] PR <#{url}|##{number}> #{title} \n"
         puts message
         NomnichiBot::SlackSender.new.send_message(message, "#notifications")
       end

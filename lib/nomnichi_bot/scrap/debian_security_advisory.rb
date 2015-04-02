@@ -1,7 +1,7 @@
 module NomnichiBot
   module Scrap
     class DebianSecurityAdvisory < Base
-      PAGE_URL = "https://www.debian.org/security/#{Date.today.year}/index.ja.html"
+      PAGE_URL = "https://www.debian.org/security/index.ja.html"
 
       class Article
         attr_reader :date, :title, :link
@@ -15,9 +15,9 @@ module NomnichiBot
       private
 
       def create_articles(content)
-        regexp = /<tt>\[([\d-]+)\].*href="\.([^"]+)">([^<]+)</
+        regexp = /<tt>\[([\d-]+)\].*href="([^"]+)">([^<]+)</
         content.scan(regexp).map do |date, link, title|
-          link = File.dirname(PAGE_URL) + link
+          link = File.dirname(PAGE_URL) + '/' + link
           Article.new(date, title, link)
         end
       end

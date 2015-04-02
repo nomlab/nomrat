@@ -26,6 +26,10 @@ module NomnichiBot
         @articles.find {|a| a.respond_to?(:date) and a.date == Date.today}
       end
 
+      def yesterday
+        @articles.find {|a| a.respond_to?(:date) and a.date == Date.today - 1}
+      end
+
       def last
         @articles.sort {|a,b| a.date <=> b.date}.last
       end

@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'nomnichi_bot/version'
+require 'nomrat/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "nomnichi_bot"
-  spec.version       = NomnichiBot::VERSION
+  spec.name          = "nomrat"
+  spec.version       = Nomrat::VERSION
   spec.authors       = ["Kimura-y"]
   spec.email         = ["https://github.com/kimura-y"]
   spec.summary       = %q{Nomnichi twitter bot.}

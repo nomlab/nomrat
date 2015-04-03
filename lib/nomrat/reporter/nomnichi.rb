@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module NomnichiBot
+module Nomrat
   module Reporter
     class Nomnichi
 
@@ -38,4 +38,4 @@ module NomnichiBot
 
     end # class Nomnichi
   end # module Reporter
-end # module NomnichiBot
+end # module Nomrat

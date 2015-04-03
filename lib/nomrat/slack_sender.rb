@@ -2,7 +2,7 @@ require "net/https"
 require "uri"
 require "json"
 
-module NomnichiBot
+module Nomrat
   class SlackSender
     def initialize
       config = Config.load(:slack)
@@ -25,8 +25,8 @@ module NomnichiBot
         res = http.post(uri.request_uri, request)
       end
 
-      puts res.body if $NOMNICHI_BOT_DEBUG
+      puts res.body if $NOMRAT_DEBUG
       return res
     end
   end # class SlackSender
-end # module NomnichiBot
+end # module Nomrat

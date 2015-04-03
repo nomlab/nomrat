@@ -5,7 +5,7 @@
 
 require 'oauth'
 
-module NomnichiBot
+module Nomrat
   class TweetSender
     def initialize
       config = Config.load(:twitter)
@@ -25,8 +25,8 @@ module NomnichiBot
 
     def send_message(string)
       result = @twitter.post("/1.1/statuses/update.json", {'status' => string})
-      puts result.body if $NOMNICHI_BOT_DEBUG
+      puts result.body if $NOMRAT_DEBUG
       return result
     end
   end # class TweetSender
-end # module NomnichiBot
+end # module Nomrat

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module NomnichiBot
+module Nomrat
   module Reporter
     class Weather
 
@@ -12,4 +12,4 @@ module NomnichiBot
 
     end # class Weather
   end # module Reporter
-end # module NomnichiBot
+end # module Nomrat

@@ -1,4 +1,4 @@
-#+TITLE: nomnichi_bot
+#+TITLE: nomrat
 #+AUTHOR: Y.Kimura
 #+EMAIL:
 #+DATE: Created 2011-06-09
@@ -23,13 +23,13 @@
 # #+LATEX_HEADER: \pagestyle{empty}
 # #+LaTeX: \thispagestyle{empty}
 
-* nomnichi_bot
-** What is nomnichi_bot?
+* nomrat
+** What is nomrat?
 
   Nomnichi is a blog of nomura-laboratory's students.
   (http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi)
 
-  nomnichi_bot tweets us who is expected to write
+  nomrat tweets us who is expected to write
   a new nomnichi blog article as a reminder.
 
   To use this application, you needs these setup:
@@ -70,37 +70,37 @@
         $ ruby -v
       #+END_SRC
 
-   3) Clone nomnichi_bot from github
+   3) Clone nomrat from github
       #+BEGIN_SRC shell-script
-        $ git clone git@github.com:nomlab/nomnichi_bot.git ~/src/nomnichi_bot
+        $ git clone git@github.com:nomlab/nomrat.git ~/src/nomrat
       #+END_SRC
 
-   4) Set default ruby version in nomnichi_bot project
+   4) Set default ruby version in nomrat project
       #+BEGIN_SRC shell-script
-        $ cd ~/src/nomnichi_bot
+        $ cd ~/src/nomrat
         $ echo '2.1.2' > .ruby-version
         $ ruby -v # -> You will see: ruby 2.1.2...
       #+END_SRC
 
-   5) Install requied gem packages in sandbox ~/src/nomnichi_bot/vendor/bundle
+   5) Install requied gem packages in sandbox ~/src/nomrat/vendor/bundle
       #+BEGIN_SRC shell-script
-        $ cd ~/src/nomnichi_bot
+        $ cd ~/src/nomrat
         $ bundle install --path vendor/bundle
       #+END_SRC
 
    6) Place OAuth credentials as _twitter_auth.stg
       #+BEGIN_SRC shell-script
         # This file is expected to contain four lines:
-        $ cat ~/src/nomnichi_bot/_twitter_auth.stg
+        $ cat ~/src/nomrat/_twitter_auth.stg
         consumer_key
         consumer_secret
         access_token
         access_token_secret
       #+END_SRC
 
-   7) Check if nomnichi_bot is alive.
+   7) Check if nomrat is alive.
       #+BEGIN_SRC shell-script
-        $ ~/src/nomnichi_bot/bin/nomnichi_bot TEST
+        $ ~/src/nomrat/bin/nomrat TEST
       #+END_SRC
 
-   You may add ~/src/nomnichi_bot/bin directory to your $PATH for dogfooding
+   You may add ~/src/nomrat/bin directory to your $PATH for dogfooding

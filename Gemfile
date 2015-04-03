@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-# Specify your gem's dependencies in nomnichi_bot.gemspec
+# Specify your gem's dependencies in nomrat.gemspec
 gemspec
 gem "oauth"
 

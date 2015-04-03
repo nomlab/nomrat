@@ -2,7 +2,7 @@ require "open-uri"
 require "date"
 require "json"
 
-module NomnichiBot
+module Nomrat
   module Scrap
     def self.open(scrap_name)
       scraps = {
@@ -28,4 +28,4 @@ module NomnichiBot
     autoload :Weather,                "#{dir}/weather.rb"
 
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

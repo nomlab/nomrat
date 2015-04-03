@@ -3,11 +3,11 @@ require "webrick/https"
 require "json"
 require "pp"
 
-module NomnichiBot
+module Nomrat
   module Command
     class Server
       def initialize(crt_file, rsa_file, token, username, servername = "localhost", port = 443, debug = false)
-        NomnichiBot::Server.run(crt_file, rsa_file, token, username, servername, port, debug)
+        Nomrat::Server.run(crt_file, rsa_file, token, username, servername, port, debug)
       end
     end # class Server
   end # module Command
@@ -75,7 +75,7 @@ module NomnichiBot
 
         message = "[#{repos_name}] PR <#{url}|##{number}> #{title} \n"
         puts message
-        NomnichiBot::SlackSender.new.send_message(message, "#notifications")
+        Nomrat::SlackSender.new.send_message(message, "#notifications")
       end
 
       return nil
@@ -87,7 +87,7 @@ module NomnichiBot
     def self.run(crt_file, rsa_file, token, username, servername = "localhost", port = 443, debug = false)
       @token     = token
       @responder = Responder.new(username)
-      @config = NomnichiBot::Config.load(:github)
+      @config = Nomrat::Config.load(:github)
 
       opt = ssl_option(*create_cert(crt_file, rsa_file, servername), port, debug)
 
@@ -158,4 +158,4 @@ module NomnichiBot
     end
 
   end # class Server
-end # module NomnichiBot
+end # module Nomrat

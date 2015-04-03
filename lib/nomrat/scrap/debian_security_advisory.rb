@@ -1,4 +1,4 @@
-module NomnichiBot
+module Nomrat
   module Scrap
     class DebianSecurityAdvisory < Base
       PAGE_URL = "https://www.debian.org/security/index.ja.html"
@@ -24,4 +24,4 @@ module NomnichiBot
 
     end # class DebianSecurityAdvisory
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

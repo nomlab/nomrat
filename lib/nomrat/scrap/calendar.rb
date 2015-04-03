@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module NomnichiBot
+module Nomrat
   module Scrap
     class Calendar < Base
 
@@ -28,4 +28,4 @@ module NomnichiBot
 
     end # class Calendar
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

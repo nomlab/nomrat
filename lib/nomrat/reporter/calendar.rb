@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-module NomnichiBot
+module Nomrat
   module Reporter
     class Calendar
 
@@ -21,4 +21,4 @@ module NomnichiBot
 
     end # class Calendar
   end # module Reporter
-end # module NomnichiBot
+end # module Nomrat

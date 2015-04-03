@@ -1,7 +1,7 @@
 require "google/api_client"
 require 'google/api_client/auth/installed_app'
 
-module NomnichiBot
+module Nomrat
   # See: https://developers.google.com/google-apps/calendar/v3/reference/?hl=ja
   class GoogleCalendar
 
@@ -38,8 +38,8 @@ module NomnichiBot
     def initialize(config)
       @config = config
       @client = Google::APIClient.new(
-        :application_name => "nomnichi_bot",
-        :application_version => NomnichiBot::VERSION
+        :application_name => "nomrat",
+        :application_version => Nomrat::VERSION
       )
 
       @client.authorization.scope         = "https://www.googleapis.com/auth/calendar"
@@ -91,4 +91,4 @@ module NomnichiBot
     end
 
   end # class Calendar
-end # module NomnichiBot
+end # module Nomrat

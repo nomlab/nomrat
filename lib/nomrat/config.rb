@@ -1,8 +1,8 @@
 require "yaml"
 
-module NomnichiBot
+module Nomrat
   class Config
-    CONFIG_HOME = File.expand_path("nomnichi_bot", (ENV["XDG_CONFIG_HOME"] || "~/.config"))
+    CONFIG_HOME = File.expand_path("nomrat", (ENV["XDG_CONFIG_HOME"] || "~/.config"))
 
     def self.load(config_name)
       self.new.load(config_name)
@@ -43,4 +43,4 @@ module NomnichiBot
     end
 
   end # class Config
-end # module NomnichiBot
+end # module Nomrat

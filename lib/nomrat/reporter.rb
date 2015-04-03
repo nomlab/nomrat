@@ -1,4 +1,4 @@
-module NomnichiBot
+module Nomrat
   module Reporter
 
     def self.report(subject)
@@ -21,4 +21,4 @@ module NomnichiBot
     autoload :Weather,          "#{dir}/weather.rb"
 
   end # module Reporter
-end # module NomnichiBot
+end # module Nomrat

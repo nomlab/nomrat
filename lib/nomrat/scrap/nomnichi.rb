@@ -1,6 +1,6 @@
 require "mechanize"
 
-module NomnichiBot
+module Nomrat
   module Scrap
     class Nomnichi < Base
       PAGE_URL = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi"
@@ -56,4 +56,4 @@ module NomnichiBot
       end
     end # class Nomnichi
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

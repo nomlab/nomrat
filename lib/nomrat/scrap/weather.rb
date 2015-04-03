@@ -4,7 +4,7 @@
 # Weather information scaper
 # http://weather.livedoor.com/weather_hacks/webservice
 #
-module NomnichiBot
+module Nomrat
   module Scrap
     class Weather < Base
       PAGE_URL = "http://weather.livedoor.com/forecast/webservice/json/v1?city=330010"
@@ -44,4 +44,4 @@ module NomnichiBot
 
     end # class Weather
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

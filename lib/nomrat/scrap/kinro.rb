@@ -1,4 +1,4 @@
-module NomnichiBot
+module Nomrat
   module Scrap
     class Kinro < Base
       PAGE_URL = "https://kinro.jointv.jp/lineup/list/"
@@ -23,4 +23,4 @@ module NomnichiBot
 
     end # class Kinro
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

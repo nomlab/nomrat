@@ -12,12 +12,12 @@ ENV["BUNDLE_GEMFILE"] = File.expand_path("../../Gemfile", __FILE__)
 require 'rubygems'
 require 'bundler/setup'
 
-require 'nomnichi_bot'
+require 'nomrat'
 require "thor"
 
 Encoding.default_external = "UTF-8"
 
-class NomnichiBotCLI < Thor
+class NomratCLI < Thor
   check_unknown_options! :except => :completions
   package_name 'nomrat'
 
@@ -40,7 +40,7 @@ class NomnichiBotCLI < Thor
   desc "version", "Show version"
 
   def version
-    puts NomnichiBot::VERSION
+    puts Nomrat::VERSION
   end
 
   ################################################################
@@ -51,7 +51,7 @@ class NomnichiBotCLI < Thor
   method_option :port,  :desc => "Set server port",  :type => :numeric, :banner => "NUMBER", :default => 8088
 
   def server
-    config = NomnichiBot::Config.load(:slack)
+    config = Nomrat::Config.load(:slack)
 
     webhook_token  = config["webhook_token"]
     servername     = config["webhook_servername"]
@@ -59,9 +59,9 @@ class NomnichiBotCLI < Thor
     debug          = options[:debug]
     username       = config[:username]
 
-    crt_file = "~/.config/nomnichi_bot/ssl.crt"
-    rsa_file = "~/.config/nomnichi_bot/ssl.key"
-    NomnichiBot::Command::Server.new(crt_file, rsa_file, webhook_token, username, servername, port, debug)
+    crt_file = "~/.config/nomrat/ssl.crt"
+    rsa_file = "~/.config/nomrat/ssl.key"
+    Nomrat::Command::Server.new(crt_file, rsa_file, webhook_token, username, servername, port, debug)
   end
 
   ################################################################
@@ -82,7 +82,7 @@ class NomnichiBotCLI < Thor
   def exit_on_error(&block)
     begin
       yield if block_given?
-    rescue NomnichiBot::ConfigurationError => e
+    rescue Nomrat::ConfigurationError => e
       STDERR.print "ERROR: #{e.message}.\n"
       exit 1
     end
@@ -90,7 +90,7 @@ class NomnichiBotCLI < Thor
 
   def setup_global_options
     exit_on_error do
-      $NOMNICHI_BOT_DEBUG = true if options[:debug]
+      $NOMRAT_DEBUG = true if options[:debug]
     end
   end
 
@@ -98,6 +98,6 @@ class NomnichiBotCLI < Thor
     Hash[hash.map {|k,v| [k.to_s.gsub('-', '_').to_sym, v]}]
   end
 
-end # class NomnichiBotCLI
+end # class NomratCLI
 
-NomnichiBotCLI.start(ARGV)
+NomratCLI.start(ARGV)

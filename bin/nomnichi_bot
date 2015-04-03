@@ -17,41 +17,41 @@ Encoding.default_external="UTF-8"
 
 require 'rubygems'
 require 'bundler/setup'
-require 'nomnichi_bot'
+require 'nomrat'
 
-$NOMNICHI_BOT_DEBUG = false
-$NOMNICHI_BOT_TEST  = false
-$NOMNICHI_BOT_METHOD = :tweet
+$NOMRAT_DEBUG = false
+$NOMRAT_TEST  = false
+$NOMRAT_METHOD = :tweet
 
 # parse options
 while ARGV[0] =~ /^--(.*)/
   case $1
   when "debug"
-    $NOMNICHI_BOT_DEBUG = true
+    $NOMRAT_DEBUG = true
   when "test"
-    $NOMNICHI_BOT_TEST = true
+    $NOMRAT_TEST = true
   when "slack"
-    $NOMNICHI_BOT_METHOD = :slack
+    $NOMRAT_METHOD = :slack
   end
   ARGV.shift
 end
 
-sender = if $NOMNICHI_BOT_TEST
-           NomnichiBot::TweetTest.new
-         elsif $NOMNICHI_BOT_METHOD == :slack
-           NomnichiBot::SlackSender.new
+sender = if $NOMRAT_TEST
+           Nomrat::TweetTest.new
+         elsif $NOMRAT_METHOD == :slack
+           Nomrat::SlackSender.new
          else
-           NomnichiBot::TweetSender.new
+           Nomrat::TweetSender.new
          end
 
-reporter = NomnichiBot::Reporter
+reporter = Nomrat::Reporter
 
 sender.send_message(ARGV[0]) if ARGV[0]
 
 subjects = [:nomnichi, :tvshow, :weather, :security_advisory, :calendar]
 
 subjects.each do |subject|
-  print "* #{subject}:\n" if $NOMNICHI_BOT_TEST || $NOMNICHI_BOT_DEBUG
+  print "* #{subject}:\n" if $NOMRAT_TEST || $NOMRAT_DEBUG
   if msg = reporter.report(subject)
     sender.send_message(msg)
   end

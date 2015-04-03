@@ -1,4 +1,4 @@
-module NomnichiBot
+module Nomrat
   module Scrap
     class Base
       attr_reader :articles
@@ -54,4 +54,4 @@ module NomnichiBot
 
     end # class Base
   end # module Scrap
-end # module NomnichiBot
+end # module Nomrat

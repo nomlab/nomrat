@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe NomnichiBot do
+describe Nomrat do
   it 'has a version number' do
-    expect(NomnichiBot::VERSION).not_to be nil
+    expect(Nomrat::VERSION).not_to be nil
   end
 
   it 'does something useful' do

@@ -1,4 +1,4 @@
-module NomnichiBot
+module Nomrat
   class TweetTest
     def send_message(string)
       puts "TweetTest: '#{string}'"

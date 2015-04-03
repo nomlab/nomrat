@@ -6,10 +6,10 @@ require 'nomrat/version'
 Gem::Specification.new do |spec|
   spec.name          = "nomrat"
   spec.version       = Nomrat::VERSION
-  spec.authors       = ["Kimura-y"]
-  spec.email         = ["https://github.com/kimura-y"]
-  spec.summary       = %q{Nomnichi twitter bot.}
-  spec.description   = %q{Nomnichi twitter bot.}
+  spec.authors       = ["nomlab"]
+  spec.email         = ["https://github.com/nomlab/nomrat"]
+  spec.summary       = %q{Nomura Laboratory's Slack/Twitter bot.}
+  spec.description   = %q{Nomura Laboratory's Slack/Twitter bot.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

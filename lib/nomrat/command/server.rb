@@ -134,6 +134,11 @@ module Nomrat
       loglevel = debug ? WEBrick::Log::DEBUG : WEBrick::Log::INFO
 
       return {
+        :BindAddress     => '0.0.0.0',
+        # Recent Rack ignores :BindAddress if environment is :development.
+        # :Host is explicit way to bind 0.0.0.0 X-)
+        # UTSL: http://www.rubydoc.info/gems/rack/Rack/Handler/WEBrick#run-class_method
+        :Host            => '0.0.0.0',
         :Port            => port,
         :Logger          => WEBrick::Log.new($stderr, loglevel),
         :SSLEnable       => true,

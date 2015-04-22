@@ -24,12 +24,18 @@ module Nomrat
 
       def fetch_content(config)
         login(config)
-        begin
-          @agent.get(PAGE_URL).body
-        rescue Mechanize::ResponseCodeError => e
-          STDERR.print "(url: #{e.page.uri}.\n"
-          return ""
+        content = ""
+
+        for page in 1..5 do
+          content +=
+            begin
+              @agent.get(PAGE_URL + "?page=#{page}").body
+            rescue Mechanize::ResponseCodeError => e
+              STDERR.print "(url: #{e.page.uri}.\n"
+              return ""
+            end
         end
+        return content
       end
 
       def login(config)

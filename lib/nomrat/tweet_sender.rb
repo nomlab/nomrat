@@ -23,7 +23,7 @@ module Nomrat
       )
     end
 
-    def send_message(string)
+    def send_message(string, channel = nil)
       result = @twitter.post("/1.1/statuses/update.json", {'status' => string})
       puts result.body if $NOMRAT_DEBUG
       return result

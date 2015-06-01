@@ -1,6 +1,6 @@
 module Nomrat
   class TweetTest
-    def send_message(string)
+    def send_message(string, channel = nil)
       puts "TweetTest: '#{string}'"
       return string
     end

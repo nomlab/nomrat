@@ -32,6 +32,8 @@ while ARGV[0] =~ /^--(.*)/
     $NOMRAT_TEST = true
   when "slack"
     $NOMRAT_METHOD = :slack
+  when "channel"
+    $NOMRAT_CHANNEL = ARGV.shift
   end
   ARGV.shift
 end
@@ -49,10 +51,10 @@ reporter = Nomrat::Reporter
 if str = ARGV.shift
   if str == '-'
     while line = gets
-      sender.send_message(line.chomp)
+      sender.send_message(line.chomp, $NOMRAT_CHANNEL)
     end
   else
-    sender.send_message(str)
+    sender.send_message(str, $NOMRAT_CHANNEL)
   end
 else
   subjects = [:nomnichi, :tvshow, :weather, :security_advisory, :calendar]
@@ -60,7 +62,7 @@ else
   subjects.each do |subject|
     print "* #{subject}:\n" if $NOMRAT_TEST || $NOMRAT_DEBUG
     if msg = reporter.report(subject)
-      sender.send_message(msg)
+      sender.send_message(msg, $NOMRAT_CHANNEL)
     end
   end
 end

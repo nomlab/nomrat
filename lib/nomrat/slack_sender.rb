@@ -14,9 +14,10 @@ module Nomrat
       @post_uri = "https://#{@team}.slack.com/services/hooks/incoming-webhook?token=#{@token}"
     end
 
-    def send_message(string, channel = @channel)
+    def send_message(string, channel = nil)
       uri = URI.parse(@post_uri)
       res = nil
+      channel ||= @channel
       json = {channel: channel, username: @username, text: string}.to_json
       request = "payload=" + json
 

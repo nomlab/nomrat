@@ -58,7 +58,7 @@ if str = ARGV.shift
     sender.send_message(str, $NOMRAT_CHANNEL)
   end
 else
-  subjects = [:nomnichi, :tvshow, :weather, :security_advisory, :calendar]
+  subjects = [:nomnichi, :tvshow, :weather, :security_advisory, :calendar, :cleaner]
 
   subjects.each do |subject|
     print "* #{subject}:\n" if $NOMRAT_TEST || $NOMRAT_DEBUG

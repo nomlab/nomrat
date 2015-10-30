@@ -17,9 +17,17 @@ module Nomrat
       private
 
       def create_articles(content)
-        content.scan(/>(\d{4}-\d{2}-\d{2})[\n ]+([\da-z-]+)</).map do |date, author|
-          Article.new(date, author)
+        articles, user, time = [], nil, nil
+
+        content.scan(/icon-(user|time).*?<\/span>\s*([^\s<]+)/) do |key, val|
+          user = val if key == "user"
+          time = val if key == "time"
+          if user && time
+            articles << Article.new(time, user)
+            user, time = nil, nil
+          end
         end
+        return articles
       end
 
       def fetch_content(config)
@@ -44,7 +52,7 @@ module Nomrat
         @agent.follow_meta_refresh = true
         @agent.ssl_version = :SSLv3
 
-        login_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/auth/login"
+        login_page = "http://www.swlab.cs.okayama-u.ac.jp/lab/nom/gate/login"
         # It works for me though...
         #   form = @agent.get(login_page).form
         #
@@ -53,9 +61,9 @@ module Nomrat
         #   http://stackoverflow.com/questions/9142831/how-can-i-get-mechanize-objects-from-mechanizepages-search-method
         #
         page = @agent.get(login_page)
-        form = page.search('div#login form').first
+        form = page.search('form').first
         form = Mechanize::Form.new(form, @agent, page)
-        form.field_with("username").value = config["username"]
+        form.field_with("ident").value = config["username"]
         form.field_with("password").value = config["password"]
         form.submit
         return self

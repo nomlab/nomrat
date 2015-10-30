@@ -14,7 +14,7 @@ module Nomrat
           msg << "#{author} さん，"
 
           if !last_article
-            msg << "たなたの記事を随分見ていません．"
+            msg << "あなたの記事を随分見ていません．"
           elsif (ago = (Date.today - last_article.date).to_i) >= 7
             msg << "最後の記事(#{ago}日前)から随分経ってますよ．"
           end

@@ -10,7 +10,8 @@ module Nomrat
         :debian_security_advisory => DebianSecurityAdvisory,
         :nomnichi                 => Nomnichi,
         :kinro                    => Kinro,
-        :weather                  => Weather
+        :weather                  => Weather,
+        :cleaner                  => Cleaner
       }
       if scraps[scrap_name]
         config = Config.load(scrap_name)
@@ -26,6 +27,7 @@ module Nomrat
     autoload :Nomnichi,               "#{dir}/nomnichi.rb"
     autoload :Kinro,                  "#{dir}/kinro.rb"
     autoload :Weather,                "#{dir}/weather.rb"
+    autoload :Cleaner,                "#{dir}/cleaner.rb"
 
   end # module Scrap
 end # module Nomrat

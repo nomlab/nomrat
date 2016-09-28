@@ -7,7 +7,8 @@ module Nomrat
         :nomnichi          => Nomnichi,
         :security_advisory => SecurityAdvisory,
         :tvshow            => Tvshow,
-        :weather           => Weather
+        :weather           => Weather,
+        :cleaner           => Cleaner,
       }
       return reporters[subject].new.report if reporters[subject]
       raise ArgumentError, "unknown subject #{subject}"
@@ -19,6 +20,6 @@ module Nomrat
     autoload :SecurityAdvisory, "#{dir}/security_advisory.rb"
     autoload :Tvshow,           "#{dir}/tvshow.rb"
     autoload :Weather,          "#{dir}/weather.rb"
-
+    autoload :Cleaner,          "#{dir}/cleaner.rb"
   end # module Reporter
 end # module Nomrat

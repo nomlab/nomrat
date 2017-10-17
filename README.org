@@ -105,7 +105,6 @@
 
    1) Twitter credencial as _twitter_auth.stg
    2) Redmine credential as _redmine_mail.stg
-
 ** Basic Usage
    : nomnichi_bot [--slack] [--debug] [--test] [MESSAGE]
    :  --slack: send MESSAGE to slack instead of Twitter
@@ -120,3 +119,19 @@
 
    =nomrat= receive incomming web-hooks from Slack or Github, and
    respond or inform them to a specific Slack channel.
+
+** Setup for botkit
+   To use nomrat for botkit, you need to setup:
+
+   1) Install packages
+   : npm install
+   2) Create config/default.yaml to copy config/default.yaml.sample
+   : cp botkit/config/default.yaml.sample botkit/config/default.yaml
+   3) Setup /default.yaml
+   : token: XXXXXXXXXXXX          # set token of bot
+   : pinatra: http://XXXXXXXXXXXX # set url of pinatra
+   : album_id:                    # set album_ids
+   :  auto_backup: XXXXXXXXXXXXXX # now, can use auto_buckup only
+
+** Usage for botkit
+  : node botkit/bot.js

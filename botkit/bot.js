@@ -213,6 +213,10 @@ controller.hears([''],'ambient,file_share',function(bot, message) {
                                                     if (err) throw err;
                                                     console.log('successfully deleted '+message.file.url_private_download.split("/").slice(-1)[0]);
                                                 });
+                                                try{
+                                                }catch(e){
+                                                    console.log('Error of Json.parse.' + e)
+                                                }
                                             }
                                         }
                                        )

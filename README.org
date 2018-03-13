@@ -100,12 +100,12 @@
 
    You may add ~/src/nomrat/bin directory to your $PATH for dogfooding
 
-** Setup
+** Setup for ruby
    To use nomrat, you need to setup:
 
    1) Twitter credencial as _twitter_auth.stg
    2) Redmine credential as _redmine_mail.stg
-** Basic Usage
+** Basic Usage for ruby
    : nomnichi_bot [--slack] [--debug] [--test] [MESSAGE]
    :  --slack: send MESSAGE to slack instead of Twitter
    :  --debug: show debug message to STDERR
@@ -133,5 +133,5 @@
    : album_id:                    # set album_ids
    :  auto_backup: XXXXXXXXXXXXXX # now, can use auto_buckup only
 
-** Usage for botkit
-  : node botkit/bot.js
+** Basic Usage for botkit
+  : node bot.js

@@ -191,13 +191,13 @@ controller.hears([''],'ambient,file_share',function(bot, message) {
                 function (error, response, body){
                     if(!error && response.statusCode === 200){
                         var binary = body;
-                        fs.writeFileSync("./img/" + message.file.url_private_download.split("/").slice(-1)[0], body, 'binary');
+                        var filename = message.file.url_private_download.split("/").slice(-3);
+                        fs.writeFileSync("./img/" + filename[0] + "-" + filename[2] , body, 'binary');
                         var album_id = ConfigFile.album_id.auto_buckup
                         var exec = require('child_process').exec;
                         var cmd;
                         cmd = 'curl ' +
-                            '-F file1=@'+ "./img/" + message.file.url_private_download.split("/").slice(-1)[0] +
-                            " " + pinatra + '/' + album_id + '/photo/new';
+                            '-F file1=@'+ "./img/" + filename[0] + "-" + filename[2] + " " + pinatra + '/' + album_id + '/photo/new';
                         execCmd = function() {
                             return exec(cmd, {timeout: 100000},
                                         function(error, stdout, stderr) {
@@ -207,13 +207,13 @@ controller.hears([''],'ambient,file_share',function(bot, message) {
                                                 console.log('exec error: '+error);
                                             }
                                             if(stdout !== null) {
-                                                var res = JSON.parse(stdout)
-                                                bot.reply(message,'Successfully uploaded: ' + res[0]["title"] + "\n" + res[0]["src"]);
-                                                fs.unlink("./img/" + message.file.url_private_download.split("/").slice(-1)[0], function (err) {
-                                                    if (err) throw err;
-                                                    console.log('successfully deleted '+message.file.url_private_download.split("/").slice(-1)[0]);
-                                                });
                                                 try{
+                                                    var res = JSON.parse(stdout)
+                                                    bot.reply(message,{text: 'Successfully uploaded: ' + "<" + res[0]["src"] + "|" + res[0]["title"] + ">", unfurl_media: false});
+                                                    fs.unlink("./img/" + filename[0] + "-" + filename[2] , function (err) {
+                                                        if (err) throw err;
+                                                        console.log('successfully deleted '+message.file.url_private_download.split("/").slice(-1)[0]);
+                                                    });
                                                 }catch(e){
                                                     console.log('Error of Json.parse.' + e)
                                                 }

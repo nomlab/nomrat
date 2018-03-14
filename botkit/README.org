@@ -1,0 +1,73 @@
+#+TITLE: nomrat mede by botkit
+#+AUTHOR: H.Yoshida and Nomura Laboratory
+#+EMAIL:
+#+DATE: Created 2018-03-14
+#+OPTIONS: H:3 num:2 toc:nil
+#+OPTIONS: ^:nil @:t \n:nil ::t |:t f:t TeX:t
+#+OPTIONS: skip:nil
+#+OPTIONS: author:t
+#+OPTIONS: email:nil
+#+OPTIONS: creator:nil
+#+OPTIONS: timestamp:nil
+#+OPTIONS: timestamps:nil
+#+OPTIONS: d:nil
+#+OPTIONS: tags:t
+#+TEXT:
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE: ja
+#+LATEX_CLASS: jsarticle
+#+LATEX_CLASS_OPTIONS: [a4j]
+# #+LATEX_HEADER: \usepackage{plain-article}
+# #+LATEX_HEADER: \renewcommand\maketitle{}
+# #+LATEX_HEADER: \pagestyle{empty}
+# #+LaTeX: \thispagestyle{empty}
+
+* nomrat made by botkit
+** Features
+
+   1) Upload picture which uploded in slack
+
+** Install for developers:
+   1) Install nvm
+      (see https://github.com/creationix/nvm for details)
+      #+BEGIN_SRC shell-script
+        $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+      #+END_SRC
+
+   2) Install node.js
+      #+BEGIN_SRC shell-script
+        # Install node.js
+        $ nvm install 4.6.0
+
+        # Installation check
+        $ nvm use 4.6.0
+        $ nvm -v # -> You will see: v4.6.0
+      #+END_SRC
+
+   3) Clone nomrat from github
+      #+BEGIN_SRC shell-script
+        $ git clone git@github.com:nomlab/nomrat.git ~/src/nomrat
+      #+END_SRC
+
+   4) Install requied packages in sandbox ~/src/nomrat/botkit/vendor/bundle
+      #+BEGIN_SRC shell-script
+        $ cd ~/src/nomrat/botkit
+        $ npm install
+      #+END_SRC
+
+** Setup
+   To use nomrat for botkit, you need to setup:
+
+   1) Install packages
+   : npm install
+   2) Create config/default.yaml to copy config/default.yaml.sample
+   : cp ~/src/nomrat/botkit/config/default.yaml.sample ~/src/nomrat/botkit/config/default.yaml
+   3) Setup /default.yaml
+   : token: XXXXXXXXXXXX          # set token of bot
+   : pinatra: http://XXXXXXXXXXXX # set url of pinatra
+   : album_id:                    # set album_ids
+   :  auto_backup: XXXXXXXXXXXXXX # now, can use auto_buckup only
+
+** Basic Usage
+  : node bot.js

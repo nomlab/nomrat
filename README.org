@@ -34,104 +34,15 @@
 
 ** Features
 
+   nomrat is divided into two bots. The functions of each framework are as follows.
+
+   Fearures of nomrat made by ruby:
    1) Remind next nomnichi author
    2) Inform today's weather in Okayama
    3) Inform kinro (TV show) title
    4) Remind group schedule
 
-** Install for developers:
-   1) Install rbenv + ruby-build
-      (see https://github.com/sstephenson/rbenv#basic-github-checkout for details)
-      #+BEGIN_SRC shell-script
-        $ git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
-        $ git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-        # Edit your shell dot files to add some path and environment variables.
-      #+END_SRC
+   Fearures of nomrat made by botkit:
+   1) Upload picture which uploded in slack
 
-   2) Install Latest Ruby and bundler
-      #+BEGIN_SRC shell-script
-        # Install ruby 2.1.2
-        $ rbenv install 2.1.2
-
-        # Installation check
-        $ rbenv global 2.1.2
-        $ ruby -v # -> You will see: ruby 2.1.2...
-
-        # Install bundler for your new Ruby
-        $ gem install bundler
-
-        # Get back to your sytem default Ruby if you want
-        $ rbenv global system # say, /usr/bin/ruby
-        $ ruby -v
-      #+END_SRC
-
-   3) Clone nomrat from github
-      #+BEGIN_SRC shell-script
-        $ git clone git@github.com:nomlab/nomrat.git ~/src/nomrat
-      #+END_SRC
-
-   4) Set default ruby version in nomrat project
-      #+BEGIN_SRC shell-script
-        $ cd ~/src/nomrat
-        $ echo '2.1.2' > .ruby-version
-        $ ruby -v # -> You will see: ruby 2.1.2...
-      #+END_SRC
-
-   5) Install requied gem packages in sandbox ~/src/nomrat/vendor/bundle
-      #+BEGIN_SRC shell-script
-        $ cd ~/src/nomrat
-        $ bundle install --path vendor/bundle
-      #+END_SRC
-
-   6) Place OAuth credentials as _twitter_auth.stg
-      #+BEGIN_SRC shell-script
-        # This file is expected to contain four lines:
-        $ cat ~/src/nomrat/_twitter_auth.stg
-        consumer_key
-        consumer_secret
-        access_token
-        access_token_secret
-      #+END_SRC
-
-   7) Check if nomrat is alive.
-      #+BEGIN_SRC shell-script
-        $ ~/src/nomrat/bin/nomrat TEST
-      #+END_SRC
-
-   You may add ~/src/nomrat/bin directory to your $PATH for dogfooding
-
-** Setup for ruby
-   To use nomrat, you need to setup:
-
-   1) Twitter credencial as _twitter_auth.stg
-   2) Redmine credential as _redmine_mail.stg
-** Basic Usage for ruby
-   : nomnichi_bot [--slack] [--debug] [--test] [MESSAGE]
-   :  --slack: send MESSAGE to slack instead of Twitter
-   :  --debug: show debug message to STDERR
-   :  --test:  show message in STDOUT, not actually send to the net
-   =nomnichi_bot= tweets some nomlab-related info gathered from the net.
-   It also prepends the MESSAGE before the info, if MESSAGE is set.
-
-   : nomrat server [--port=NUMBER]
-   :  --port: socket port number on which waiting the incoming web hooks
-   :  --debug: show debug message to STDERR
-
-   =nomrat= receive incomming web-hooks from Slack or Github, and
-   respond or inform them to a specific Slack channel.
-
-** Setup for botkit
-   To use nomrat for botkit, you need to setup:
-
-   1) Install packages
-   : npm install
-   2) Create config/default.yaml to copy config/default.yaml.sample
-   : cp botkit/config/default.yaml.sample botkit/config/default.yaml
-   3) Setup /default.yaml
-   : token: XXXXXXXXXXXX          # set token of bot
-   : pinatra: http://XXXXXXXXXXXX # set url of pinatra
-   : album_id:                    # set album_ids
-   :  auto_backup: XXXXXXXXXXXXXX # now, can use auto_buckup only
-
-** Basic Usage for botkit
-  : node bot.js
+   For details of each bot, see the README.org of each directory.

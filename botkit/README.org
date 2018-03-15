@@ -61,9 +61,11 @@
 
    1) Install packages
    : npm install
+
    2) Create config/default.yaml to copy config/default.yaml.sample
    : cp ~/src/nomrat/botkit/config/default.yaml.sample ~/src/nomrat/botkit/config/default.yaml
-   3) Setup /default.yaml
+
+   3) Setup config/default.yaml
    : token: XXXXXXXXXXXX          # set token of bot
    : pinatra: http://XXXXXXXXXXXX # set url of pinatra
    : album_id:                    # set album_ids

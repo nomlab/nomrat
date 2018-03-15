@@ -196,9 +196,9 @@ controller.hears([''],'ambient,file_share',function(bot, message) {
                         var album_id = ConfigFile.album_id.auto_buckup
                         var exec = require('child_process').exec;
                         var cmd;
-                        cmd = 'curl ' +
+                        var cmd = 'curl ' +
                             '-F file1=@'+ "./img/" + filename[0] + "-" + filename[2] + " " + pinatra + '/' + album_id + '/photo/new';
-                        execCmd = function() {
+                        var execCmd = function() {
                             return exec(cmd, {timeout: 100000},
                                         function(error, stdout, stderr) {
                                             console.log('stdout: '+(stdout||'none'));
@@ -215,7 +215,7 @@ controller.hears([''],'ambient,file_share',function(bot, message) {
                                                         console.log('successfully deleted '+message.file.url_private_download.split("/").slice(-1)[0]);
                                                     });
                                                 }catch(e){
-                                                    console.log('Error of Json.parse.' + e)
+                                                    console.log('Error of Json.parse.' + e);
                                                 }
                                             }
                                         }

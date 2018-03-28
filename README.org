@@ -23,7 +23,6 @@
 # #+LATEX_HEADER: \pagestyle{empty}
 # #+LaTeX: \thispagestyle{empty}
 
-* nomrat
 ** What is nomrat?
 
   nomrat tweets us who is expected to write

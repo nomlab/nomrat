@@ -25,23 +25,9 @@
 
 ** What is nomrat?
 
-  nomrat tweets us who is expected to write
-  a new nomnichi blog article as a reminder.
-
-  Nomnichi is a blog of nomura-laboratory's students.
-  (http://www.swlab.cs.okayama-u.ac.jp/lab/nom/nomnichi)
+  nomrat is twitter/slack bot as a virtual member of nomura laboratory.
 
 ** Features
 
-   nomrat is divided into two bots. The functions of each framework are as follows.
-
-   Fearures of nomrat made by ruby:
-   1) Remind next nomnichi author
-   2) Inform today's weather in Okayama
-   3) Inform kinro (TV show) title
-   4) Remind group schedule
-
-   Fearures of nomrat made by botkit:
-   1) Upload picture which uploded in slack
-
-   For details of each bot, see the README.org of each directory.
+   nomrat has multiple implementations.
+   see details in sub-directories such as ruby/ botkit/.
